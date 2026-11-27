@@ -1,7 +1,9 @@
 from fastapi.testclient import TestClient
 
+from been2guessr.models import BuildOptions, BuildStats, Pano
+from been2guessr.selector import BuildResult
 from been2guessr.web.app import create_app
-from been2guessr.web.jobs import JobStore
+from been2guessr.web.jobs import Job, JobStore
 
 
 def make_client() -> TestClient:
@@ -55,3 +57,31 @@ def test_rejects_too_many_locations():
 def test_unknown_job():
     client = make_client()
     assert client.get("/api/jobs/nope").status_code == 404
+
+
+def test_public_job_includes_coverage_points():
+    result = BuildResult(
+        panos=[
+            Pano(id="a", lat=1.234, lon=2.345),
+            Pano(id="b", lat=-3.456, lon=-4.567, third_party=True),
+        ],
+        stats=BuildStats(
+            requested=2,
+            produced=2,
+            places_total=2,
+            places_covered=2,
+            official=1,
+            third_party=1,
+            countries={"PT": 2},
+            skipped_places=[],
+            warnings=[],
+        ),
+        username="tester",
+    )
+    job = Job(id="job", source="tester", options=BuildOptions(count=2))
+    job.result = result
+
+    payload = job.public()
+
+    assert payload["summary"]["produced"] == 2
+    assert payload["points"] == [[1.23, 2.35, False], [-3.46, -4.57, True]]

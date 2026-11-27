@@ -1,10 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="been2guessr">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#8ef0a3" />
-      <stop offset="1" stop-color="#5cc8ff" />
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="15" fill="url(#g)" />
-  <text x="32" y="41" text-anchor="middle" font-family="ui-monospace, Consolas, monospace" font-size="23" font-weight="700" fill="#08130c">b2g</text>
+  <rect width="64" height="64" rx="14" fill="#0f1512" />
+  <path d="M32 9c-8.6 0-15.5 6.9-15.5 15.5C16.5 36 32 55 32 55s15.5-19 15.5-30.5C47.5 15.9 40.6 9 32 9Z" fill="#d8a24a" />
+  <circle cx="32" cy="24.5" r="6.4" fill="none" stroke="#0f1512" stroke-width="1.8" />
+  <path d="M25.6 24.5h12.8M32 18.1v12.8" stroke="#0f1512" stroke-width="1.8" />
 </svg>

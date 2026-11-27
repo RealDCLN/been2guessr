@@ -51,6 +51,10 @@ class Job:
             payload["summary"] = summarize(self.result)
             payload["download"] = f"/api/jobs/{self.id}/download.json"
             payload["report"] = f"/api/jobs/{self.id}/report.csv"
+            payload["points"] = [
+                [round(pano.lat, 2), round(pano.lon, 2), pano.third_party]
+                for pano in self.result.panos
+            ]
             payload["preview"] = [
                 {
                     "place": pano.place_label,
