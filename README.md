@@ -166,6 +166,16 @@ The app is a normal FastAPI service with one important constraint: jobs are
 held in memory, so run **one worker**. For a personal or small public instance
 that is plenty.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/your-username/been2guessr)
+
+The free, step-by-step path is **[docs/deploy-render.md](docs/deploy-render.md)**:
+GitHub → Render Blueprint → free `onrender.com` URL, with automatic deploys on
+every push. No credit card is normally required.
+
+> Netlify, Vercel, and Cloudflare Workers are built for short requests. A build
+> makes ~2,000 outbound requests and takes 2–4 minutes, so it does not fit their
+> free function limits. Use a Docker web host instead.
+
 ### Docker
 
 ```bash
@@ -177,7 +187,7 @@ Open <http://127.0.0.1:8000>.
 ### Render / Railway / Fly.io
 
 A `render.yaml` is included. Point any Docker-based host at the repository; the
-container starts `been2guessr serve --host 0.0.0.0 --port 8000` and exposes a
+container listens on the platform's `PORT` (falling back to 8000) and exposes a
 `/api/health` check.
 
 Environment variables:
@@ -189,11 +199,12 @@ Environment variables:
 | `JOB_TTL_SECONDS` | `3600` | How long finished jobs stay downloadable |
 | `RATE_LIMIT_JOBS` | `5` | Jobs per IP per window |
 | `RATE_LIMIT_WINDOW` | `3600` | Rate-limit window in seconds |
-| `TRUST_PROXY` | `false` | Trust `X-Forwarded-For` for client IPs |
+| `TRUST_PROXY` | `false` | Trust `X-Forwarded-For` for client IPs (set `true` on Render) |
 | `ALLOWED_ORIGINS` | empty | Comma-separated CORS origins, if embedding |
 
 See [docs/deployment.md](docs/deployment.md) for reverse-proxy and scaling
-notes.
+notes, and [docs/deploy-render.md](docs/deploy-render.md) for the full free
+walkthrough.
 
 ## Development
 
@@ -248,7 +259,7 @@ The project is ready to push as-is. Before publishing, replace the
 - `README.md` (badge and clone URL)
 - `pyproject.toml` (`Homepage` / `Issues`)
 - `src/been2guessr/web/static/index.html` (header and footer GitHub links)
-- `src/been2guessr/panos.py` (`USER_AGENT` URL, optional)
+- `src/been2guessr/beeneverywhere.py` (`USER_AGENT` URL, optional)
 
 Then:
 

@@ -11,7 +11,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import HTMLResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, model_validator
 
@@ -114,6 +114,10 @@ def create_app(store: JobStore | None = None) -> FastAPI:
     @app.get("/", response_class=HTMLResponse, include_in_schema=False)
     async def index() -> HTMLResponse:
         return HTMLResponse((STATIC_DIR / "index.html").read_text(encoding="utf-8"))
+
+    @app.get("/robots.txt", response_class=PlainTextResponse, include_in_schema=False)
+    async def robots() -> str:
+        return "User-agent: *\nAllow: /\n"
 
     @app.get("/api/health")
     async def health() -> dict:
