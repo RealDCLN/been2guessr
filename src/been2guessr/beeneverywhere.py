@@ -18,7 +18,7 @@ from .geo import haversine_m
 from .models import Place
 
 BASE_URL = "https://beeneverywhere.net"
-USER_AGENT = "been2guessr/0.1 (+https://github.com/your-username/been2guessr)"
+USER_AGENT = "been2guessr/0.1 (+https://github.com/RealDCLN/been2guessr)"
 
 _USERNAME_RE = re.compile(r"^[A-Za-z0-9_.-]{1,64}$")
 _URL_RE = re.compile(r"(?:https?://)?(?:www\.)?beeneverywhere\.net/user/([^/?#\s]+)", re.I)
@@ -33,10 +33,10 @@ def parse_source(source: str) -> tuple[str, str | None]:
 
     Accepts::
 
-        your-username
-        @your-username
-        https://beeneverywhere.net/user/your-username
-        https://beeneverywhere.net/user/your-username?secret=abc123
+        RealDCLN
+        @RealDCLN
+        https://beeneverywhere.net/user/RealDCLN
+        https://beeneverywhere.net/user/RealDCLN?secret=abc123
     """
     source = source.strip()
     if not source:
