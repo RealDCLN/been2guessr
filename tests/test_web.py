@@ -25,6 +25,13 @@ def test_index():
     assert "been2guessr" in response.text
 
 
+def test_robots():
+    client = make_client()
+    response = client.get("/robots.txt")
+    assert response.status_code == 200
+    assert "Allow: /" in response.text
+
+
 def test_rejects_invalid_source():
     client = make_client()
     response = client.post("/api/jobs", json={"source": "https://example.com/nope", "count": 10})

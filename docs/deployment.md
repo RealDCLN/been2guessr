@@ -1,5 +1,9 @@
 # Deploying the web UI
 
+For a complete, free, step-by-step deployment, see
+[deploy-render.md](deploy-render.md). This page covers the platform details,
+reverse proxies, and scaling.
+
 The web app is a single FastAPI process. Builds run as asyncio background
 tasks; the result is held in memory and served from
 `/api/jobs/<id>/download.json`.
