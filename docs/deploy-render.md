@@ -19,15 +19,18 @@ deploys on every push.
 
 ## 1. Personalise the links (optional, 1 minute)
 
-The code works with the placeholders, but your public site should link to your
-repo. Replace `your-username` with your GitHub username:
+This repository is already linked to **RealDCLN** on GitHub, so if you are
+deploying it under that account, skip this step.
+
+If you forked it somewhere else, point the GitHub links at your account:
 
 ```bash
-python scripts/personalize.py YOUR_GITHUB_USERNAME
+python scripts/personalize.py --from RealDCLN YOUR_GITHUB_USERNAME
 ```
 
 This updates the README badges/clone URL, `pyproject.toml` links, the UI GitHub
-links, and the user-agent string. Preview first with `--dry-run` if you like.
+links, the user-agent string, and `humans.txt`. Preview with `--dry-run` first
+if you like. The example commands and the username field stay generic.
 
 ## 2. Push the repository to GitHub
 
@@ -53,6 +56,9 @@ and `git commit` and just add the remote and push:
 git remote add origin https://github.com/YOUR_GITHUB_USERNAME/been2guessr.git
 git push -u origin main
 ```
+
+If you are deploying this repository as-is, use `RealDCLN` instead of
+`YOUR_GITHUB_USERNAME`.
 
 Check that the repository is public and that `render.yaml` is at the root.
 

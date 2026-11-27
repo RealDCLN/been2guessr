@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="44" viewBox="0 0 240 44" role="img" aria-label="made by DCLN">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8ef0a3" />
+      <stop offset="1" stop-color="#5cc8ff" />
+    </linearGradient>
+    <linearGradient id="border" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8ef0a3" stop-opacity=".55" />
+      <stop offset="1" stop-color="#5cc8ff" stop-opacity=".2" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x=".75" y=".75" width="238.5" height="42.5" rx="21.25" fill="#0d131d" stroke="url(#border)" />
+  <path d="M22 12.5l2.3 7.2 7.2 2.3-7.2 2.3L22 31.5l-2.3-7.2L12.5 22l7.2-2.3z" fill="url(#g)" filter="url(#glow)" />
+  <text x="40" y="27" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" letter-spacing="2.2" fill="#6b7c93">MADE BY</text>
+  <text x="111" y="28" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="2.5" fill="url(#g)">DCLN</text>
+  <text x="198" y="27" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#8ef0a3">✦</text>
+</svg>

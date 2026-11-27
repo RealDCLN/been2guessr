@@ -32,6 +32,13 @@ def test_robots():
     assert "Allow: /" in response.text
 
 
+def test_humans():
+    client = make_client()
+    response = client.get("/humans.txt")
+    assert response.status_code == 200
+    assert "DCLN" in response.text
+
+
 def test_rejects_invalid_source():
     client = make_client()
     response = client.post("/api/jobs", json={"source": "https://example.com/nope", "count": 10})
