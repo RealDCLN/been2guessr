@@ -2,7 +2,6 @@
   color-scheme: dark;
   --bg: #0b0f0d;
   --panel: #0f1512;
-  --panel-2: #121a15;
   --input: #0a0f0c;
   --line: rgba(232, 238, 230, 0.11);
   --line-soft: rgba(232, 238, 230, 0.065);
@@ -177,8 +176,8 @@ code {
   display: grid;
   grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
   gap: 56px;
-  align-items: start;
-  padding: 40px 0 32px;
+  align-items: center;
+  padding: 56px 0;
 }
 
 .kicker {
@@ -209,6 +208,25 @@ code {
   color: var(--text-2);
 }
 
+.hero-output {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  max-width: 46ch;
+  margin: 28px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+
+.hero-output .mono {
+  flex: none;
+  font-size: 10.5px;
+  color: var(--text-2);
+}
+
 /* Build form */
 
 .build {
@@ -217,6 +235,33 @@ code {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel);
+}
+
+.hero-build {
+  margin-top: 0;
+  padding: 24px;
+}
+
+.form-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.form-head h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.form-head .mono {
+  font-size: 11px;
+  color: var(--text-3);
 }
 
 .field {
@@ -431,45 +476,7 @@ input[type="number"]:focus-visible {
   color: var(--text);
 }
 
-/* Map plate */
-
-.plate {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--panel);
-  overflow: hidden;
-}
-
-.plate-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--line-soft);
-  font-size: 13px;
-}
-
-.plate-title {
-  color: var(--text);
-  font-weight: 500;
-}
-
-.plate-meta {
-  color: var(--text-3);
-  font-size: 11.5px;
-}
-
-.plate-map {
-  background: #0a0f0c;
-  border-bottom: 1px solid var(--line-soft);
-}
-
-.plate-map svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+/* Coverage map */
 
 .land {
   fill: #22322a;
@@ -489,196 +496,6 @@ input[type="number"]:focus-visible {
   stroke-width: 1;
 }
 
-.route {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.8;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  opacity: 0.65;
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
-  animation: route-draw 1500ms var(--ease) 150ms forwards;
-}
-
-@keyframes route-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.pin {
-  opacity: 0;
-  animation: pin-in 520ms var(--ease) both;
-  animation-delay: calc(180ms + var(--i) * 80ms);
-}
-
-@keyframes pin-in {
-  to {
-    opacity: 1;
-  }
-}
-
-.pin-halo {
-  fill: var(--accent);
-  opacity: 0.13;
-}
-
-.pin-dot {
-  fill: var(--accent);
-}
-
-.pin-ring {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1;
-  opacity: 0.6;
-}
-
-.pin-tick {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1;
-  opacity: 0.5;
-}
-
-.map-tag {
-  opacity: 0;
-  animation: map-label-in 600ms var(--ease) 700ms forwards;
-}
-
-@keyframes map-label-in {
-  to {
-    opacity: 1;
-  }
-}
-
-.map-tag path {
-  fill: none;
-  stroke: var(--line-strong);
-  stroke-width: 1;
-}
-
-.map-tag-name {
-  fill: var(--text);
-  font-family: var(--sans);
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.map-tag-coords {
-  fill: var(--text-3);
-  font-family: var(--mono);
-  font-size: 12.5px;
-}
-
-.compass {
-  opacity: 0;
-  animation: map-label-in 600ms var(--ease) 500ms forwards;
-}
-
-.compass circle {
-  fill: none;
-  stroke: var(--line);
-  stroke-width: 1;
-}
-
-.compass-north {
-  fill: var(--accent);
-}
-
-.compass text {
-  fill: var(--text-3);
-  font-family: var(--mono);
-  font-size: 12px;
-  text-anchor: middle;
-}
-
-.map-edge,
-.map-scale {
-  fill: var(--text-3);
-  font-family: var(--mono);
-  font-size: 15px;
-  letter-spacing: 0.02em;
-  opacity: 0.75;
-}
-
-.map-scale {
-  font-size: 13px;
-  opacity: 0.5;
-}
-
-.plate-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.plate-list li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1.15fr) auto;
-  align-items: center;
-  gap: 10px;
-  height: 44px;
-  padding: 0 20px;
-  font-size: 13px;
-}
-
-.plate-list li + li {
-  border-top: 1px solid var(--line-soft);
-}
-
-.place {
-  color: var(--text);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.cc {
-  color: var(--text-3);
-  font-size: 11px;
-}
-
-.coords {
-  color: var(--text-2);
-  font-size: 11.5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.kind {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--text-3);
-  font-size: 11.5px;
-}
-
-.kind .dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex: none;
-}
-
-.plate-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 11px 20px;
-  border-top: 1px solid var(--line-soft);
-  background: var(--panel-2);
-  font-size: 11.5px;
-  color: var(--text-3);
-}
-
-.plate-foot .mono {
-  font-size: 10.5px;
-}
 
 /* Sheets */
 
@@ -1239,10 +1056,6 @@ table.preview tr:last-child td {
     gap: 40px;
     padding-top: 24px;
   }
-
-  .plate {
-    max-width: 640px;
-  }
 }
 
 @media (max-width: 760px) {
@@ -1283,14 +1096,6 @@ table.preview tr:last-child td {
 
   .check {
     grid-column: span 1;
-  }
-
-  .plate-list li {
-    grid-template-columns: minmax(0, 1fr) 22px auto;
-  }
-
-  .plate-list .coords {
-    display: none;
   }
 
   .sheet {
@@ -1367,13 +1172,6 @@ table.preview tr:last-child td {
     font-size: 15px;
   }
 
-  .plate-head,
-  .plate-list li,
-  .plate-foot {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
   .build {
     padding: 16px;
   }
@@ -1410,10 +1208,6 @@ table.preview tr:last-child td {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-  }
-
-  .route {
-    stroke-dashoffset: 0;
   }
 }
 

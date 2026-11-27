@@ -84,153 +84,77 @@
             Street View panoramas near the places you have been, with pano IDs and
             starting headings already set.
           </p>
-
-          <form id="build-form" class="build" novalidate>
-            <div class="field">
-              <label class="field-label" for="source">BeenEverywhere profile</label>
-              <div class="input-row">
-                <input
-                  id="source"
-                  name="source"
-                  type="text"
-                  placeholder="your-username"
-                  autocomplete="off"
-                  spellcheck="false"
-                  required
-                />
-                <button id="submit" class="button primary" type="submit">Build map</button>
-              </div>
-              <small>Public maps only. Private maps work with <code>?secret=…</code> in the URL.</small>
-            </div>
-
-            <div class="build-row">
-              <label class="field count-field">
-                <span class="field-label">Locations</span>
-                <input id="count" name="count" type="number" value="300" min="1" max="2000" step="1" />
-              </label>
-              <p class="build-note">100–1000 makes a good round.</p>
-            </div>
-
-            <details class="advanced">
-              <summary>Advanced options</summary>
-              <div class="advanced-grid">
-                <label class="field">
-                  <span>Search radius per place (m)</span>
-                  <input id="max_radius" type="number" value="1600" min="100" max="20000" step="100" />
-                  <small>How far to look around each visited place.</small>
-                </label>
-                <label class="field">
-                  <span>Minimum spacing (m)</span>
-                  <input id="min_spacing" type="number" value="100" min="0" max="5000" step="10" />
-                  <small>Stops two picks from being on top of each other.</small>
-                </label>
-                <label class="field">
-                  <span>Max per place</span>
-                  <input id="per_place_max" type="number" value="8" min="1" max="50" step="1" />
-                  <small>Balanced automatically across all your places.</small>
-                </label>
-                <label class="field">
-                  <span>Seed (optional)</span>
-                  <input id="seed" type="number" min="0" step="1" placeholder="random" />
-                  <small>Same seed, same starting headings.</small>
-                </label>
-                <label class="check">
-                  <input id="include_photospheres" type="checkbox" checked />
-                  <span>Include user photospheres when official coverage is missing</span>
-                </label>
-                <label class="check">
-                  <input id="official_only" type="checkbox" />
-                  <span>Official Google coverage only</span>
-                </label>
-              </div>
-            </details>
-          </form>
+          <p class="hero-output">
+            <span class="mono">Output</span>
+            <span>GeoGuessr JSON with pano IDs and headings, plus a CSV report for review</span>
+          </p>
         </div>
 
-        <aside class="plate" aria-label="Example of a built map">
-          <div class="plate-head">
-            <span class="plate-title">Sample map</span>
-            <span class="plate-meta mono">5 stops</span>
+        <form id="build-form" class="build hero-build" novalidate aria-label="Build a GeoGuessr map">
+          <div class="form-head">
+            <h2>Build a map</h2>
+            <span class="mono">No login</span>
           </div>
-          <div class="plate-map">
-            <svg viewBox="0 0 960 470" role="img" aria-label="World map with five sample stops connected by a route">
-              <use href="#graticule" class="graticule" />
-              <use href="#world-land" class="land" />
-              <path class="equator" d="M0 278H960" />
-              <path
-                class="route"
-                d="M421 66 456 150 529 390 600 140 857 135"
+
+          <div class="field">
+            <label class="field-label" for="source">BeenEverywhere profile</label>
+            <div class="input-row">
+              <input
+                id="source"
+                name="source"
+                type="text"
+                placeholder="your-username"
+                autocomplete="off"
+                spellcheck="false"
+                required
               />
-
-              <g class="pin" style="--i: 0" transform="translate(421 66)">
-                <circle class="pin-halo" r="12" />
-                <circle class="pin-dot" r="4.2" />
-              </g>
-              <g class="pin" style="--i: 1" transform="translate(456 150)">
-                <circle class="pin-halo" r="12" />
-                <circle class="pin-dot" r="4.2" />
-              </g>
-              <g class="pin" style="--i: 2" transform="translate(529 390)">
-                <circle class="pin-halo" r="12" />
-                <circle class="pin-dot" r="4.2" />
-              </g>
-              <g class="pin pin-active" style="--i: 3" transform="translate(600 140)">
-                <circle class="pin-halo" r="15" />
-                <circle class="pin-ring" r="11" />
-                <circle class="pin-dot" r="4.4" />
-                <path class="pin-tick" d="M0 -14v-4M0 14v4M-14 0h-4M14 0h4" />
-              </g>
-              <g class="pin" style="--i: 4" transform="translate(857 135)">
-                <circle class="pin-halo" r="12" />
-                <circle class="pin-dot" r="4.2" />
-              </g>
-
-              <g class="map-tag" transform="translate(616 104)">
-                <path d="M-16 36 -4 16" />
-                <text class="map-tag-name">Tbilisi</text>
-                <text class="map-tag-coords" y="15">41.72° N 44.83° E</text>
-              </g>
-
-              <g class="compass" transform="translate(908 44)">
-                <circle r="15" />
-                <path class="compass-north" d="M0 -9 3.4 3 0 0.6 -3.4 3Z" />
-                <text y="-21">N</text>
-              </g>
-
-              <text class="map-edge" x="8" y="75">60°N</text>
-              <text class="map-edge" x="8" y="274">0°</text>
-              <text class="map-edge" x="8" y="373">30°S</text>
-              <text class="map-edge" x="160" y="462" text-anchor="middle">120°W</text>
-              <text class="map-edge" x="480" y="462" text-anchor="middle">0°</text>
-              <text class="map-edge" x="800" y="462" text-anchor="middle">120°E</text>
-              <text class="map-scale" x="948" y="462" text-anchor="end">WGS 84</text>
-            </svg>
+              <button id="submit" class="button primary" type="submit">Build map</button>
+            </div>
+            <small>Public maps only. Private maps work with <code>?secret=…</code> in the URL.</small>
           </div>
-          <ol class="plate-list">
-            <li>
-              <span class="place">Lisbon</span>
-              <span class="cc mono">PT</span>
-              <span class="coords mono">38.7223, −9.1393</span>
-              <span class="kind"><i class="dot"></i>Official</span>
-            </li>
-            <li>
-              <span class="place">Tbilisi</span>
-              <span class="cc mono">GE</span>
-              <span class="coords mono">41.7151, 44.8271</span>
-              <span class="kind"><i class="dot"></i>Official</span>
-            </li>
-            <li>
-              <span class="place">Cape Town</span>
-              <span class="cc mono">ZA</span>
-              <span class="coords mono">−33.9249, 18.4241</span>
-              <span class="kind"><i class="dot"></i>Official</span>
-            </li>
-          </ol>
-          <div class="plate-foot">
-            <span>JSON with pano IDs</span>
-            <span class="mono">ready to import</span>
+
+          <div class="build-row">
+            <label class="field count-field">
+              <span class="field-label">Locations</span>
+              <input id="count" name="count" type="number" value="300" min="1" max="2000" step="1" />
+            </label>
+            <p class="build-note">100–1000 makes a good round.</p>
           </div>
-        </aside>
+
+          <details class="advanced">
+            <summary>Advanced options</summary>
+            <div class="advanced-grid">
+              <label class="field">
+                <span>Search radius per place (m)</span>
+                <input id="max_radius" type="number" value="1600" min="100" max="20000" step="100" />
+                <small>How far to look around each visited place.</small>
+              </label>
+              <label class="field">
+                <span>Minimum spacing (m)</span>
+                <input id="min_spacing" type="number" value="100" min="0" max="5000" step="10" />
+                <small>Stops two picks from being on top of each other.</small>
+              </label>
+              <label class="field">
+                <span>Max per place</span>
+                <input id="per_place_max" type="number" value="8" min="1" max="50" step="1" />
+                <small>Balanced automatically across all your places.</small>
+              </label>
+              <label class="field">
+                <span>Seed (optional)</span>
+                <input id="seed" type="number" min="0" step="1" placeholder="random" />
+                <small>Same seed, same starting headings.</small>
+              </label>
+              <label class="check">
+                <input id="include_photospheres" type="checkbox" checked />
+                <span>Include user photospheres when official coverage is missing</span>
+              </label>
+              <label class="check">
+                <input id="official_only" type="checkbox" />
+                <span>Official Google coverage only</span>
+              </label>
+            </div>
+          </details>
+        </form>
       </section>
 
       <section id="status" class="sheet status" hidden aria-live="polite">
