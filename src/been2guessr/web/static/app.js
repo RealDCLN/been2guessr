@@ -260,4 +260,10 @@
     form.scrollIntoView({ behavior: "smooth", block: "center" });
   });
   $("copy-json").addEventListener("click", copyJson);
+
+  console.log(
+    "%c made by DCLN %c github.com/RealDCLN ",
+    "background:#8ef0a3;color:#08130c;font-weight:700;padding:3px 8px;border-radius:4px",
+    "color:#94a3b8"
+  );
 })();

@@ -119,6 +119,20 @@ def create_app(store: JobStore | None = None) -> FastAPI:
     async def robots() -> str:
         return "User-agent: *\nAllow: /\n"
 
+    @app.get("/humans.txt", response_class=PlainTextResponse, include_in_schema=False)
+    async def humans() -> str:
+        return (
+            "/* TEAM */\n"
+            "Developer: DCLN\n"
+            "GitHub: https://github.com/RealDCLN\n"
+            "\n"
+            "/* SITE */\n"
+            "Name: been2guessr\n"
+            "Description: Turn a BeenEverywhere map into a GeoGuessr map.\n"
+            "Stack: Python, FastAPI, httpx\n"
+            "License: MIT\n"
+        )
+
     @app.get("/api/health")
     async def health() -> dict:
         return {

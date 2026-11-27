@@ -47,13 +47,13 @@ per-country summary.
 ### CLI
 
 ```bash
-been2guessr build RealDCLN -n 300 -o my-map.json --csv
+been2guessr build your-username -n 300 -o my-map.json --csv
 ```
 
 Or use a full profile URL:
 
 ```bash
-been2guessr build "https://beeneverywhere.net/user/RealDCLN" -n 300
+been2guessr build "https://beeneverywhere.net/user/your-username" -n 300
 ```
 
 `--csv` also writes a report with the place name, pano ID, capture date, and a
@@ -62,7 +62,7 @@ Google Maps link for every pick, so you can review the map before importing.
 ### Inspect a map first
 
 ```bash
-been2guessr inspect RealDCLN
+been2guessr inspect your-username
 ```
 
 Prints the number of places, the country breakdown, and the map's extreme
@@ -101,13 +101,13 @@ Examples:
 
 ```bash
 # A small map for testing
-been2guessr build RealDCLN -n 50 -o test.json --csv
+been2guessr build your-username -n 50 -o test.json --csv
 
 # Official coverage only, tighter search
-been2guessr build RealDCLN -n 200 --official-only --max-radius 800
+been2guessr build your-username -n 200 --official-only --max-radius 800
 
 # Reproducible headings
-been2guessr build RealDCLN -n 300 --seed 42 -o map.json
+been2guessr build your-username -n 300 --seed 42 -o map.json
 
 # Build from a JSON file you saved earlier
 been2guessr build --input query-visits.json -n 300
@@ -119,7 +119,7 @@ The main file looks like a GeoGuessr map draft:
 
 ```json
 {
-  "name": "RealDCLN - Places I've Been (300)",
+  "name": "your-username - Places I've Been (300)",
   "customCoordinates": [
     {
       "heading": 213,
@@ -251,24 +251,27 @@ docs/                 # algorithm + deployment notes
 - **Privacy.** The tool only reads the public map you point it at. It does not
   store usernames or results beyond the in-memory job cache.
 
-## Publish this repository
+## Publishing your own copy
 
-The project is ready to push as-is. Before publishing, replace the
-`RealDCLN` placeholder in:
+This repository is linked to **RealDCLN** on GitHub and branded **DCLN**. If
+you fork it and want the links to point at your account:
 
-- `README.md` (badge and clone URL)
-- `pyproject.toml` (`Homepage` / `Issues`)
-- `src/been2guessr/web/static/index.html` (header and footer GitHub links)
-- `src/been2guessr/beeneverywhere.py` (`USER_AGENT` URL, optional)
+```bash
+python scripts/personalize.py --from RealDCLN <your-github-username>
+git add -A
+git commit -m "Point links at my account"
+```
 
-Then:
+The example commands and the username field stay generic on purpose.
+
+Then push. If you are starting from a copy without git history:
 
 ```bash
 git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/<you>/been2guessr.git
+git remote add origin https://github.com/<your-github-username>/been2guessr.git
 git push -u origin main
 ```
 
@@ -283,6 +286,20 @@ Google's terms; use the generated maps for personal, non-commercial play.
 BeenEverywhere map data belongs to its users — only build maps from profiles
 you have permission to use.
 
+## Credits
+
+Built by [DCLN](https://github.com/RealDCLN). Panorama request layouts were adapted
+from the MIT-licensed [streetlevel](https://github.com/sk-zk/streetlevel)
+project — see [NOTICE](NOTICE) for attribution.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+---
+
+<p align="center">
+  <a href="https://github.com/RealDCLN">
+    <img src="assets/made-by-dcln.svg" alt="made by DCLN" height="44" />
+  </a>
+</p>

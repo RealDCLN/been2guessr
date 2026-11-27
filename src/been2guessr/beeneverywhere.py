@@ -33,10 +33,10 @@ def parse_source(source: str) -> tuple[str, str | None]:
 
     Accepts::
 
-        RealDCLN
-        @RealDCLN
-        https://beeneverywhere.net/user/RealDCLN
-        https://beeneverywhere.net/user/RealDCLN?secret=abc123
+        your-username
+        @your-username
+        https://beeneverywhere.net/user/your-username
+        https://beeneverywhere.net/user/your-username?secret=abc123
     """
     source = source.strip()
     if not source:
