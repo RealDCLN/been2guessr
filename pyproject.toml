@@ -44,8 +44,8 @@ dev = [
 been2guessr = "been2guessr.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/your-username/been2guessr"
-Issues = "https://github.com/your-username/been2guessr/issues"
+Homepage = "https://github.com/RealDCLN/been2guessr"
+Issues = "https://github.com/RealDCLN/been2guessr/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/been2guessr"]

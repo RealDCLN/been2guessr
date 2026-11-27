@@ -1,6 +1,6 @@
 # been2guessr
 
-[![CI](https://github.com/your-username/been2guessr/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/been2guessr/actions/workflows/ci.yml)
+[![CI](https://github.com/RealDCLN/been2guessr/actions/workflows/ci.yml/badge.svg)](https://github.com/RealDCLN/been2guessr/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8ef0a3.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-5cc8ff.svg)](pyproject.toml)
 
@@ -47,13 +47,13 @@ per-country summary.
 ### CLI
 
 ```bash
-been2guessr build your-username -n 300 -o my-map.json --csv
+been2guessr build RealDCLN -n 300 -o my-map.json --csv
 ```
 
 Or use a full profile URL:
 
 ```bash
-been2guessr build "https://beeneverywhere.net/user/your-username" -n 300
+been2guessr build "https://beeneverywhere.net/user/RealDCLN" -n 300
 ```
 
 `--csv` also writes a report with the place name, pano ID, capture date, and a
@@ -62,7 +62,7 @@ Google Maps link for every pick, so you can review the map before importing.
 ### Inspect a map first
 
 ```bash
-been2guessr inspect your-username
+been2guessr inspect RealDCLN
 ```
 
 Prints the number of places, the country breakdown, and the map's extreme
@@ -101,13 +101,13 @@ Examples:
 
 ```bash
 # A small map for testing
-been2guessr build your-username -n 50 -o test.json --csv
+been2guessr build RealDCLN -n 50 -o test.json --csv
 
 # Official coverage only, tighter search
-been2guessr build your-username -n 200 --official-only --max-radius 800
+been2guessr build RealDCLN -n 200 --official-only --max-radius 800
 
 # Reproducible headings
-been2guessr build your-username -n 300 --seed 42 -o map.json
+been2guessr build RealDCLN -n 300 --seed 42 -o map.json
 
 # Build from a JSON file you saved earlier
 been2guessr build --input query-visits.json -n 300
@@ -119,7 +119,7 @@ The main file looks like a GeoGuessr map draft:
 
 ```json
 {
-  "name": "your-username - Places I've Been (300)",
+  "name": "RealDCLN - Places I've Been (300)",
   "customCoordinates": [
     {
       "heading": 213,
@@ -166,7 +166,7 @@ The app is a normal FastAPI service with one important constraint: jobs are
 held in memory, so run **one worker**. For a personal or small public instance
 that is plenty.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/your-username/been2guessr)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/RealDCLN/been2guessr)
 
 The free, step-by-step path is **[docs/deploy-render.md](docs/deploy-render.md)**:
 GitHub → Render Blueprint → free `onrender.com` URL, with automatic deploys on
@@ -209,7 +209,7 @@ walkthrough.
 ## Development
 
 ```bash
-git clone https://github.com/your-username/been2guessr
+git clone https://github.com/RealDCLN/been2guessr
 cd been2guessr
 python -m venv .venv
 source .venv/bin/activate
@@ -254,7 +254,7 @@ docs/                 # algorithm + deployment notes
 ## Publish this repository
 
 The project is ready to push as-is. Before publishing, replace the
-`your-username` placeholder in:
+`RealDCLN` placeholder in:
 
 - `README.md` (badge and clone URL)
 - `pyproject.toml` (`Homepage` / `Issues`)
