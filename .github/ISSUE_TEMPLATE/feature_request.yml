@@ -1,0 +1,41 @@
+name: Feature request
+description: Suggest an improvement or a new use case.
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. Please keep proposals focused on the project's
+        lightweight, dependency-light design.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the use case, not just the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should the tool do differently?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing flags, workarounds, or other tools.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options:
+        - Web UI
+        - CLI
+        - Library / pipeline
+        - Deployment / Docker
+        - Documentation
+    validations:
+      required: true

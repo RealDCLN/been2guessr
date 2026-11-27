@@ -22,8 +22,7 @@ import httpx
 from .models import Pano
 
 COVERAGE_TILE_URL = (
-    "https://www.google.com/maps/photometa/ac/v1"
-    "?pb=!1m1!1smaps_sv.tactile!6m3!1i{tx}!2i{ty}!3i17!8b1"
+    "https://www.google.com/maps/photometa/ac/v1?pb=!1m1!1smaps_sv.tactile!6m3!1i{tx}!2i{ty}!3i17!8b1"
 )
 FIND_URL = (
     "https://maps.googleapis.com/$rpc/google.internal.maps.mapsjs.v1.MapsJsInternalService/SingleImageSearch"
@@ -150,8 +149,9 @@ def _metadata_url(panoid: str, locale: str = "en") -> str:
             11: {3: {4: True}},
         },
     }
-    return f"https://www.google.com/maps/photometa/v1?authuser=0&hl={lang}&gl={country}&pb=" + to_protobuf_url(
-        message
+    return (
+        f"https://www.google.com/maps/photometa/v1?authuser=0&hl={lang}&gl={country}&pb="
+        + to_protobuf_url(message)
     )
 
 

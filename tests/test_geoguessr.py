@@ -59,6 +59,21 @@ def test_csv_report():
     assert "\r\r" not in text
 
 
+def test_csv_report_neutralises_formula_cells():
+    result = make_result()
+    for value in ("=1+1", "+1", "-1+1", "@SUM(A1)", "\tcmd", "\rcmd"):
+        result.panos[0].place_label = value
+        rows = list(csv.reader(io.StringIO(to_csv(result))))
+        assert rows[1][1] == "'" + value
+
+
+def test_csv_report_leaves_normal_cells_untouched():
+    rows = list(csv.reader(io.StringIO(to_csv(make_result()))))
+    assert rows[1][1] == ""
+    assert rows[1][2] == "FR"
+    assert rows[1][3].startswith("PANO")
+
+
 def test_filename_slug():
     assert filename("marin manos", 300) == "marin-manos-geoguessr-300.json"
     assert filename(None, 10, "csv") == "been2guessr-geoguessr-10.csv"

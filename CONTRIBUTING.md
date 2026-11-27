@@ -5,7 +5,7 @@ Thanks for helping! been2guessr is a small, dependency-light project.
 ## Setup
 
 ```bash
-git clone https://github.com/your-username/been2guessr
+git clone https://github.com/RealDCLN/been2guessr
 cd been2guessr
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
@@ -16,6 +16,7 @@ pip install -e ".[dev]"
 
 ```bash
 ruff check .
+ruff format --check .
 pytest -q
 ```
 

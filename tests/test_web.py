@@ -1,8 +1,11 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from been2guessr.models import BuildOptions, BuildStats, Pano
+from been2guessr.panos import PanoError
 from been2guessr.selector import BuildResult
-from been2guessr.web.app import create_app
+from been2guessr.web import jobs as jobs_module
+from been2guessr.web.app import MAX_REQUEST_BYTES, create_app
 from been2guessr.web.jobs import Job, JobStore
 
 
@@ -25,6 +28,32 @@ def test_index():
     response = client.get("/")
     assert response.status_code == 200
     assert "been2guessr" in response.text
+
+
+def test_security_headers():
+    client = make_client()
+    response = client.get("/")
+    assert response.headers["x-content-type-options"] == "nosniff"
+    assert response.headers["x-frame-options"] == "DENY"
+    assert response.headers["content-security-policy"].startswith("default-src 'self'")
+    assert "camera=()" in response.headers["permissions-policy"]
+    assert "strict-transport-security" not in response.headers
+
+
+def test_hsts_on_https_proxy():
+    client = make_client()
+    response = client.get("/", headers={"x-forwarded-proto": "https"})
+    assert response.headers["strict-transport-security"].startswith("max-age=")
+
+
+def test_rejects_oversized_body():
+    client = make_client()
+    response = client.post(
+        "/api/jobs",
+        content=b"{" + b" " * MAX_REQUEST_BYTES + b"}",
+        headers={"content-type": "application/json"},
+    )
+    assert response.status_code == 413
 
 
 def test_robots():
@@ -85,3 +114,31 @@ def test_public_job_includes_coverage_points():
 
     assert payload["summary"]["produced"] == 2
     assert payload["points"] == [[1.23, 2.35, False], [-3.46, -4.57, True]]
+
+
+@pytest.mark.asyncio
+async def test_job_surfaces_known_errors(monkeypatch):
+    async def fail(*args, **kwargs):
+        raise PanoError("Google refused the panorama request (403). Try again later.")
+
+    monkeypatch.setattr(jobs_module, "build_from_source", fail)
+    store = JobStore(rate_limit=100)
+    job = store.create("tester", BuildOptions(count=1))
+    await store.run(job)
+
+    assert job.status == "error"
+    assert "403" in job.error
+
+
+@pytest.mark.asyncio
+async def test_job_hides_unexpected_errors(monkeypatch):
+    async def fail(*args, **kwargs):
+        raise RuntimeError("internal path /tmp/secret")
+
+    monkeypatch.setattr(jobs_module, "build_from_source", fail)
+    store = JobStore(rate_limit=100)
+    job = store.create("tester", BuildOptions(count=1))
+    await store.run(job)
+
+    assert job.status == "error"
+    assert job.error == "The build failed unexpectedly. Please try again."

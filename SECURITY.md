@@ -6,8 +6,9 @@ The latest release on the `main` branch is supported.
 
 ## Reporting a vulnerability
 
-Please do not open a public issue for security problems. Email the maintainer
-or use GitHub's private vulnerability reporting on the repository. Include:
+Please do not open a public issue for security problems. Use GitHub's private
+vulnerability reporting on the repository:
+<https://github.com/RealDCLN/been2guessr/security/advisories/new>. Include:
 
 - what the issue is;
 - steps to reproduce;
@@ -29,7 +30,14 @@ been2guessr is a small self-hostable app. Areas worth reviewing:
 - **Downloads** — job IDs are random (`secrets.token_urlsafe`). Results are
   readable by anyone with the ID until they expire. Do not treat them as
   private storage.
+- **Request bodies** — API bodies over 64 KiB are rejected with HTTP 413 before
+  they are parsed.
+- **Browser hardening** — responses set a Content-Security-Policy,
+  Permissions-Policy, frame denial, no-sniff, and HTTPS-only HSTS headers.
+- **CSV reports** — cells that could be interpreted as spreadsheet formulas are
+  prefixed with an apostrophe.
 - **Dependencies** — keep `httpx`, `fastapi`, and `uvicorn` up to date.
+  Dependabot is enabled for Python, GitHub Actions, and Docker.
 
 ## Out of scope
 

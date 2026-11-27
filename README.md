@@ -15,6 +15,8 @@ starting headings, ready to import as handpicked locations.
 BeenEverywhere map  →  Street View coverage search  →  balanced selection  →  GeoGuessr JSON
 ```
 
+![been2guessr web interface](docs/screenshot.jpg)
+
 ## Why this exists
 
 BeenEverywhere gives you a beautiful map of everywhere you have been, but it
@@ -70,12 +72,18 @@ points without building anything.
 
 ## Installation
 
+been2guessr is not on PyPI yet. Install it from source:
+
 ```bash
-pip install been2guessr
+git clone https://github.com/RealDCLN/been2guessr
+cd been2guessr
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install .
 ```
 
-Requires Python 3.10+. The only runtime dependencies are `httpx`, `fastapi`,
-and `uvicorn`.
+For development, use `pip install -e ".[dev]"` instead. Requires Python 3.10+.
+The only runtime dependencies are `httpx`, `fastapi`, and `uvicorn`.
 
 ## CLI options
 
@@ -217,7 +225,11 @@ pip install -e ".[dev]"
 
 pytest
 ruff check .
+ruff format --check .
 ```
+
+Contributions are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md) for the
+workflow and testing expectations.
 
 Project layout:
 
@@ -250,6 +262,13 @@ docs/                 # algorithm + deployment notes
   300-location build makes roughly 2,000 requests to Google.
 - **Privacy.** The tool only reads the public map you point it at. It does not
   store usernames or results beyond the in-memory job cache.
+
+## Security
+
+The web app is deliberately small: no accounts, no database, no user uploads.
+Job IDs are random, results expire, request bodies are capped, and responses
+include hardening headers. For deployment guidance and the vulnerability
+disclosure process, see [SECURITY.md](SECURITY.md).
 
 ## Publishing your own copy
 

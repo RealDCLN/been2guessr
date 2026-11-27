@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security report
+    url: https://github.com/RealDCLN/been2guessr/security/advisories/new
+    about: Report vulnerabilities privately, not in a public issue.
+  - name: Deployment guide
+    url: https://github.com/RealDCLN/been2guessr/blob/main/docs/deploy-render.md
+    about: Free Render deployment walkthrough.

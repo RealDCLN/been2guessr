@@ -1,0 +1,60 @@
+name: Bug report
+description: Report a problem with the CLI, web UI, or build output.
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please do not include private
+        map secrets, personal data, or generated map files.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run ...
+        2. Choose ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options:
+        - Web UI
+        - CLI
+        - Library / pipeline
+        - Deployment / Docker
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: "0.1.1 or ae01afa"
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Python 3.12 on Windows 11, or Docker on Render"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Redact usernames, secrets, and coordinates if needed.
+      render: shell

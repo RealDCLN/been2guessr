@@ -13,8 +13,10 @@ import secrets
 import time
 from dataclasses import dataclass, field
 
+from ..beeneverywhere import BeenEverywhereError
 from ..geoguessr import to_csv, to_geoguessr
 from ..models import BuildOptions, Progress
+from ..panos import PanoError
 from ..pipeline import BuildResult, build_from_source, summarize
 
 log = logging.getLogger(__name__)
@@ -52,8 +54,7 @@ class Job:
             payload["download"] = f"/api/jobs/{self.id}/download.json"
             payload["report"] = f"/api/jobs/{self.id}/report.csv"
             payload["points"] = [
-                [round(pano.lat, 2), round(pano.lon, 2), pano.third_party]
-                for pano in self.result.panos
+                [round(pano.lat, 2), round(pano.lon, 2), pano.third_party] for pano in self.result.panos
             ]
             payload["preview"] = [
                 {
@@ -162,10 +163,16 @@ class JobStore:
                 job.status = "error"
                 job.error = "Job cancelled."
                 raise
-            except Exception as exc:  # noqa: BLE001 - surface a friendly message to the UI
-                log.exception("job %s failed", job.id)
+            except (BeenEverywhereError, PanoError, ValueError) as exc:
+                # These messages are written for users and contain no internals.
+                log.warning("job %s failed: %s", job.id, exc)
                 job.status = "error"
                 job.error = str(exc) or exc.__class__.__name__
+                job.message = "Build failed"
+            except Exception:  # noqa: BLE001 - never leak internals to the client
+                log.exception("job %s failed", job.id)
+                job.status = "error"
+                job.error = "The build failed unexpectedly. Please try again."
                 job.message = "Build failed"
             finally:
                 job.updated_at = time.time()

@@ -16,6 +16,19 @@ def slugify(value: str) -> str:
     return value or "map"
 
 
+# Spreadsheet apps treat cells that begin with these characters as formulas.
+# Place labels and other metadata can come from third-party map data, so prefix
+# them with an apostrophe to keep the report inert when opened in Excel et al.
+_CSV_FORMULA_PREFIXES = ("=", "+", "-", "@", "\t", "\r")
+
+
+def _csv_cell(value: object) -> str:
+    text = "" if value is None else str(value)
+    if text.startswith(_CSV_FORMULA_PREFIXES):
+        return "'" + text
+    return text
+
+
 def _permalink(pano: Pano) -> str:
     pano_type = 10 if pano.third_party else 2
     return (
@@ -78,15 +91,15 @@ def to_csv(result: BuildResult) -> str:
         writer.writerow(
             [
                 index,
-                pano.place_label or "",
-                pano.country_code or "",
-                pano.id,
+                _csv_cell(pano.place_label),
+                _csv_cell(pano.country_code),
+                _csv_cell(pano.id),
                 f"{pano.lat:.7f}",
                 f"{pano.lon:.7f}",
                 round(pano.distance_m),
-                "photosphere" if pano.third_party else (pano.source or "official"),
-                pano.date or "",
-                _permalink(pano),
+                _csv_cell("photosphere" if pano.third_party else (pano.source or "official")),
+                _csv_cell(pano.date),
+                _csv_cell(_permalink(pano)),
             ]
         )
     return buffer.getvalue()
