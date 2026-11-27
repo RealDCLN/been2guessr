@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>been2guessr — your travels as a GeoGuessr map</title>
+    <meta
+      name="description"
+      content="Turn a public BeenEverywhere travel map into a GeoGuessr custom map of real Street View panoramas."
+    />
+    <meta name="theme-color" content="#0b0e14" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="been2guessr home">
+        <span class="brand-mark" aria-hidden="true">b2g</span>
+        <span>been<span class="accent">2</span>guessr</span>
+      </a>
+      <nav class="site-nav">
+        <a href="#how">How it works</a>
+        <a
+          class="gh-link"
+          href="https://github.com/your-username/been2guessr"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub ↗</a
+        >
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">BeenEverywhere → GeoGuessr</p>
+        <h1>Your travels.<br /><span class="gradient">A playable map.</span></h1>
+        <p class="lede">
+          Paste a public BeenEverywhere profile. Get a JSON file full of real
+          Street View panoramas near the places you have been — ready to import
+          into GeoGuessr as handpicked locations.
+        </p>
+      </section>
+
+      <section class="card build-card" aria-labelledby="build-title">
+        <h2 id="build-title" class="sr-only">Build a map</h2>
+        <form id="build-form" novalidate>
+          <label class="field field-wide">
+            <span>BeenEverywhere profile</span>
+            <input
+              id="source"
+              name="source"
+              type="text"
+              placeholder="your-username or https://beeneverywhere.net/user/your-username"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <small>Your map must be public. Private maps can use <code>?secret=…</code> in the URL.</small>
+          </label>
+
+          <div class="form-row">
+            <label class="field">
+              <span>Locations</span>
+              <input id="count" name="count" type="number" value="300" min="1" max="2000" step="1" />
+              <small>A good GeoGuessr map has 100–1000.</small>
+            </label>
+            <div class="field submit-field">
+              <span class="field-label">Ready when you are</span>
+              <button id="submit" class="button primary big" type="submit">
+                Build my map
+              </button>
+            </div>
+          </div>
+
+          <details class="advanced">
+            <summary>Advanced options</summary>
+            <div class="advanced-grid">
+              <label class="field">
+                <span>Search radius per place (m)</span>
+                <input id="max_radius" type="number" value="1600" min="100" max="20000" step="100" />
+                <small>How far to look around each visited place.</small>
+              </label>
+              <label class="field">
+                <span>Minimum spacing (m)</span>
+                <input id="min_spacing" type="number" value="100" min="0" max="5000" step="10" />
+                <small>Stops two picks from being on top of each other.</small>
+              </label>
+              <label class="field">
+                <span>Max per place</span>
+                <input id="per_place_max" type="number" value="8" min="1" max="50" step="1" />
+                <small>Balanced automatically across all your places.</small>
+              </label>
+              <label class="field">
+                <span>Seed (optional)</span>
+                <input id="seed" type="number" min="0" step="1" placeholder="random" />
+                <small>Same seed = same starting headings.</small>
+              </label>
+              <label class="check">
+                <input id="include_photospheres" type="checkbox" checked />
+                <span>Include user photospheres when official coverage is missing</span>
+              </label>
+              <label class="check">
+                <input id="official_only" type="checkbox" />
+                <span>Official Google coverage only</span>
+              </label>
+            </div>
+          </details>
+        </form>
+      </section>
+
+      <section id="status" class="card status" hidden aria-live="polite">
+        <div class="status-top">
+          <div>
+            <p class="eyebrow" id="status-eyebrow">Working</p>
+            <h2 id="status-title">Finding your places…</h2>
+          </div>
+          <div class="status-right">
+            <span id="status-pct" class="mono">0%</span>
+            <span id="status-time" class="muted mono">0s</span>
+          </div>
+        </div>
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="bar" class="bar"></div>
+        </div>
+        <p id="status-message" class="muted">Contacting BeenEverywhere…</p>
+      </section>
+
+      <section id="result" class="card result" hidden aria-live="polite">
+        <div class="result-head">
+          <div>
+            <p class="eyebrow">Map ready</p>
+            <h2 id="result-title">Your map is built</h2>
+          </div>
+          <span class="badge" id="result-badge"></span>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat"><span class="stat-value mono" id="stat-locations">0</span><span>locations</span></div>
+          <div class="stat"><span class="stat-value mono" id="stat-places">0</span><span>places covered</span></div>
+          <div class="stat"><span class="stat-value mono" id="stat-countries">0</span><span>countries</span></div>
+          <div class="stat"><span class="stat-value mono" id="stat-photospheres">0</span><span>photospheres</span></div>
+        </div>
+
+        <div id="country-chips" class="chips"></div>
+        <div id="warnings" class="warnings"></div>
+
+        <div class="actions">
+          <a id="download-json" class="button primary" download>Download JSON</a>
+          <a id="download-csv" class="button" download>Download CSV report</a>
+          <button id="copy-json" class="button" type="button">Copy JSON</button>
+        </div>
+
+        <details class="import-help">
+          <summary>How to import this into GeoGuessr</summary>
+          <ol>
+            <li>Open GeoGuessr and create a new map in the map editor.</li>
+            <li>Choose <strong>Import locations</strong> (or use the copy/paste map data userscript).</li>
+            <li>Upload the JSON file you just downloaded.</li>
+            <li>If your editor only accepts a bare list, build again with the CLI <code>--array</code> flag.</li>
+          </ol>
+          <p class="muted">
+            Every location includes a <code>panoId</code>, so the map uses the exact panorama
+            that was selected. Keep the map unlisted/private if you only made it for yourself.
+          </p>
+        </details>
+
+        <div class="preview-wrap">
+          <h3>First picks</h3>
+          <div class="table-wrap">
+            <table class="preview">
+              <thead>
+                <tr><th>Place</th><th>Country</th><th>Coordinates</th><th>Type</th></tr>
+              </thead>
+              <tbody id="preview-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="error" class="card error" hidden aria-live="assertive">
+        <p class="eyebrow">Something went wrong</p>
+        <h2>Could not build this map</h2>
+        <p id="error-message" class="muted"></p>
+        <button id="retry" class="button" type="button">Try again</button>
+      </section>
+
+      <section id="how" class="how">
+        <h2>What happens under the hood</h2>
+        <div class="how-grid">
+          <article>
+            <span class="step mono">01</span>
+            <h3>Read your map</h3>
+            <p>
+              been2guessr pulls the public GeoJSON from BeenEverywhere — the same data
+              behind your visited-cities map. No login, no scraping of your profile page.
+            </p>
+          </article>
+          <article>
+            <span class="step mono">02</span>
+            <h3>Find real panoramas</h3>
+            <p>
+              For each place it searches Google Street View coverage, reads panorama
+              metadata, and discards indoor, broken, and duplicate picks.
+            </p>
+          </article>
+          <article>
+            <span class="step mono">03</span>
+            <h3>Build a balanced map</h3>
+            <p>
+              Locations are spread across every place you visited, with a minimum
+              distance between picks. Then it writes the GeoGuessr JSON with pano IDs.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>been2guessr</strong> · MIT licensed ·
+        <a href="https://github.com/your-username/been2guessr">source</a>
+      </div>
+      <p class="muted">
+        Not affiliated with GeoGuessr, Google, or BeenEverywhere. Uses public map data
+        and Google's internal Street View endpoints, which may change at any time.
+      </p>
+    </footer>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
