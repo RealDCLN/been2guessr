@@ -8,7 +8,7 @@
       name="description"
       content="Turn a public BeenEverywhere travel map into a GeoGuessr custom map of real Street View panoramas."
     />
-    <meta name="theme-color" content="#0b0e14" />
+    <meta name="theme-color" content="#0b0f0d" />
     <meta name="author" content="DCLN" />
     <link rel="author" href="/humans.txt" />
     <meta property="og:type" content="website" />
@@ -24,166 +24,329 @@
       content="Turn a public BeenEverywhere travel map into a GeoGuessr custom map of real Street View panoramas."
     />
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
+    <svg class="sprite" aria-hidden="true" focusable="false">
+      <defs>
+        <path
+          id="world-land"
+          d="M321 543 320 546 308 546 303 544 315 544 318 542ZM55 541 50 542 43 538 50 537 55 540ZM360 536 363 538 364 543 351 546 339 546 336 544 344 542 350 536 356 536ZM157 521 163 521 159 523 154 521ZM145 521 149 523 141 521 143 520ZM216 516 222 516 223 518 211 518 207 516 212 516ZM297 513 297 517 280 517 280 515 288 514 290 507 293 506 297 511ZM324 490 313 493 314 497 305 502 313 508 318 522 292 532 274 532 284 536 272 537 272 540 279 544 325 553 343 549 354 548 366 550 371 547 404 544 401 540 385 541 385 537 436 526 439 523 436 523 437 521 445 519 453 514 460 515 465 513 468 515 479 515 499 511 501 509 509 512 525 509 537 510 540 512 555 511 565 509 570 505 583 509 618 497 630 496 633 499 644 503 651 501 664 503 666 507 661 511 664 512 661 516 669 517 677 509 687 508 689 505 701 500 711 500 715 497 717 500 722 501 746 501 754 495 763 500 783 496 788 499 800 501 806 498 834 498 839 497 840 494 847 500 865 499 874 504 891 505 898 508 904 508 911 512 926 512 937 515 931 522 923 524 916 530 918 536 924 537 925 539 911 540 906 546 913 550 932 555 960 558 960 576 0 576 0 558 3 557 7 558 11 556 15 558 18 556 29 556 58 561 98 560 99 558 70 555 73 551 62 546 78 547 90 544 76 540 66 540 59 536 58 533 70 533 72 535 90 531 89 529 94 527 119 524 161 525 176 522 181 525 183 524 193 527 212 527 213 526 204 521 204 518 216 519 223 522 233 520 240 521 242 518 244 520 260 522 266 520 280 523 299 519 301 517 297 510 297 507 300 505 299 501 312 492 326 487 326 489ZM299 456 307 459 305 461 301 460 295 462 281 453 290 457 295 452 298 454ZM324 447 325 450 318 451 317 450 322 448ZM667 443 663 443 663 441 664 439 668 441ZM868 413 875 413 876 417 872 422 869 422 866 413ZM941 413 942 415 944 413 945 415 942 423 937 424 935 430 932 432 924 431 925 427 935 420 941 412ZM946 398 949 402 953 404 956 403 955 408 953 408 947 416 947 412 944 409 946 402 940 392 945 395ZM926 351 921 350 917 345 919 345 924 350ZM956 335 956 338 953 338 955 336ZM958 334 956 333 960 331 960 333ZM926 327 925 330 924 326ZM613 323 615 328 614 331 613 329 612 330 613 334 606 361 601 363 597 361 595 351 599 342 597 339 599 332 603 330 608 323 609 324 611 318 613 321ZM863 324 868 328 870 341 877 346 879 352 882 352 882 356 888 362 888 368 890 371 888 383 881 396 880 402 875 403 870 407 866 405 867 403 863 406 855 404 851 396 848 396 849 392 845 395 848 389 847 387 843 394 838 386 830 382 816 385 811 387 810 390 800 390 795 394 791 394 787 391 789 383 782 364 783 366 783 363 785 365 782 359 784 350 785 353 786 350 792 346 804 342 806 335 808 332 810 335 809 333 815 325 819 324 826 328 827 321 830 318 834 318 832 315 841 319 844 317 845 319 841 328 854 337 856 336 860 313 863 322ZM802 312 797 310 800 309 802 311ZM909 311 906 310 909 310ZM812 312 809 311 813 307 820 306 814 309ZM794 305 797 305 798 307 791 308 794 306ZM808 305 803 308 800 307 802 305 805 306ZM906 306 902 303 906 305ZM900 302 898 302 897 300 899 301ZM770 300 775 301 775 299 789 306 769 304 761 301 763 298 769 299ZM896 301 892 295 896 300ZM885 296 881 299 876 296 882 296 884 292 886 292 886 294ZM819 289 818 291 816 290 819 288ZM828 288 829 291 827 289 821 289 822 287 825 287ZM888 293 882 287 883 286 888 291ZM838 282 838 287 841 289 843 286 849 284 866 291 869 296 874 298 874 300 872 300 873 302 882 313 874 312 866 303 862 305 862 308 860 309 856 308 854 305 847 306 850 302 848 296 836 290 835 292 832 287 837 285 833 285 828 281 833 279 837 281ZM823 274 822 281 820 275 821 271 821 273 823 273ZM762 297 759 297 752 290 743 272 734 262 734 260 740 261 748 271 753 273 757 278 757 282 763 288 762 292ZM794 272 797 275 794 275 790 291 786 292 782 288 779 290 778 288 774 288 774 283 771 280 772 271 774 273 778 268 781 268 791 255 798 260 793 267 795 270ZM817 250 817 257 816 254 814 260 811 258 810 252 805 254 809 249 810 251 815 248 814 246 817 247 817 249ZM697 258 694 258 693 256 694 246 696 247 698 257ZM318 245 315 245 316 242 318 242ZM811 244 808 248 806 246 808 242 809 244 811 241ZM796 247 792 250 799 240 797 245ZM805 239 808 240 805 243 805 240ZM815 238 813 244 811 236 814 237ZM804 235 803 238 801 233 803 234ZM804 217 806 217 807 221 804 225 805 231 811 232 811 237 808 233 803 233 803 230 800 228 802 217ZM305 218 301 219 301 217 305 217ZM275 219 271 217 277 219ZM286 212 291 212 298 216 297 218 292 217 290 220 289 218 281 217 287 216 284 213 285 212ZM774 216 772 218 770 217 770 214 774 211 775 214ZM65 215 64 211 67 212 66 214ZM64 210 62 209 64 209ZM60 207 59 208 59 206ZM268 203 272 204 282 212 273 212 274 210 262 205 262 203 253 206 255 203 261 201 265 202ZM273 199 271 197 271 195 273 197ZM803 203 802 205 800 200 804 194 805 197ZM272 190 270 191 269 189 272 189ZM275 190 274 192 273 189ZM839 165 835 170 833 167 837 164ZM572 160 568 164 566 162 570 161ZM543 160 550 161 543 161ZM521 151 520 157 513 154 514 152 519 152ZM505 142 506 148 502 148 503 143ZM856 155 854 162 846 163 842 167 840 164 829 166 832 168 828 175 828 171 825 168 834 161 842 160 845 155 846 156 852 152 854 142 857 141 858 148 856 152ZM505 139 505 141 503 140 503 137 505 136ZM864 132 866 133 868 131 868 135 864 136 862 139 858 137 856 140 853 140 859 127 862 131ZM310 124 315 124 312 126 308 123 309 122ZM151 117 149 118 139 113 138 110 142 111 150 116ZM330 110 329 113 337 115 340 121 338 124 336 123 336 120 332 123 333 121 330 120 322 120 322 117 327 110 332 108ZM126 99 129 99 128 103 130 105 125 99ZM863 110 866 116 862 115 860 120 863 125 861 123 859 126 858 102 860 98 862 107ZM462 105 453 107 456 103 454 100 462 95 465 97 463 100 464 102ZM514 94 512 97 509 95 509 93 513 92ZM72 89 69 90 68 88 71 86 74 87ZM472 84 469 88 475 87 472 93 479 98 481 103 484 103 484 108 481 110 468 111 466 113 465 112 471 108 466 106 469 105 467 103 468 101 472 101 470 97 466 96 467 93 465 95 464 90 467 84 469 84ZM38 80 33 79 38 78ZM269 72 268 74 266 74 268 72ZM22 67 30 69 22 68ZM253 61 266 67 258 66 252 69 251 67 247 68 250 66 251 60ZM441 58 444 62 430 68 419 66 422 65 416 63 421 62 415 61 421 58 425 60 433 60 437 58ZM278 56 275 56 275 52 280 53 279 55ZM13 58 15 58 14 56 22 57 27 60 20 61 20 65 7 61 4 62 4 59 0 60 2 62 0 63 0 50 14 56ZM225 49 218 50 214 48 218 46 223 48ZM960 44 957 44 960 41ZM3 43 0 44 0 41 6 43ZM239 48 239 51 242 49 247 56 252 50 252 47 260 47 263 49 261 53 263 56 254 59 251 58 247 64 238 67 238 70 235 70 229 76 228 83 231 83 234 89 238 88 253 95 261 95 261 102 267 109 270 104 267 97 271 96 276 91 271 83 274 80 272 72 283 71 290 76 294 76 295 83 300 85 308 78 316 89 315 92 327 97 332 105 320 112 303 112 290 123 293 123 297 118 303 115 307 115 309 117 306 119 308 125 312 127 316 126 319 122 319 125 321 126 306 134 304 134 304 131 308 128 293 133 291 138 292 140 294 139 283 143 288 143 283 143 280 149 279 147 280 151 277 155 278 152 276 148 275 151 278 160 263 174 267 189 266 195 264 195 259 187 260 184 256 178 253 180 250 177 244 177 241 178 242 182 231 179 222 184 220 187 219 206 224 216 228 218 236 216 239 209 249 207 243 225 253 225 258 227 256 240 261 248 264 249 269 246 275 249 278 247 280 241 284 241 289 237 289 248 293 238 298 243 307 245 308 243 315 243 313 244 316 245 318 250 321 250 324 255 331 259 337 259 343 264 345 272 347 272 345 277 350 279 350 282 352 280 356 281 362 285 361 287 373 288 385 295 387 300 386 308 376 324 376 335 371 351 368 354 361 355 353 360 350 366 350 373 337 392 334 394 324 390 329 400 322 406 314 407 313 414 306 414 307 417 310 417 311 419 306 422 305 427 300 431 302 434 305 434 296 446 298 451 291 453 290 456 280 451 278 439 282 433 278 432 281 430 282 424 285 425 286 418 284 417 283 422 282 421 285 408 284 401 287 396 290 378 289 374 291 370 293 343 289 335 277 327 272 312 263 298 264 291 267 287 267 285 266 287 264 285 267 277 266 275 270 273 269 272 274 265 274 259 271 253 272 250 268 248 265 251 267 253 264 254 264 252 257 250 257 248 251 244 252 242 246 235 247 234 235 231 230 225 227 224 223 226 214 223 200 214 198 204 188 193 189 191 182 184 178 175 174 173 174 178 187 199 187 203 181 196 181 192 173 186 176 183 172 180 168 170 164 165 158 163 148 145 150 127 148 118 152 119 153 122 152 116 145 111 140 110 139 105 122 86 88 77 85 77 85 80 75 82 76 77 79 76 78 75 69 82 71 83 69 86 58 91 58 93 41 98 40 97 52 93 61 83 57 83 56 85 54 83 48 84 47 79 43 80 39 78 37 74 41 69 49 68 51 67 51 65 49 65 51 64 40 65 32 61 41 58 49 59 42 54 35 52 37 50 42 50 48 45 62 42 104 47 113 50 140 45 145 48 148 46 149 48 156 47 173 50 176 52 173 53 177 54 187 53 190 55 193 53 190 52 197 50 209 54 217 54 217 52 220 51 224 52 224 55 225 53 228 53 229 49 223 46 223 42 226 40 232 42 236 46 234 47ZM176 36 174 38 187 37 191 41 193 40 191 36 196 36 199 37 201 43 211 46 210 48 206 48 208 49 207 50 194 49 178 51 170 49 167 46 180 45 166 45 164 43 170 42 162 41 166 37 173 35ZM201 35 199 37 195 35 199 34ZM276 36 267 37 264 34 272 34ZM249 36 251 38 254 35 260 34 265 37 265 40 272 37 282 40 282 42 287 41 299 46 301 49 297 51 315 57 310 63 302 58 299 59 298 61 306 65 308 68 307 71 297 67 304 73 296 72 280 64 271 64 272 62 283 61 282 60 286 54 275 50 277 49 274 47 241 44 244 42 240 42 239 39 244 35 251 34ZM212 34 220 34 221 35 219 36 223 38 222 41 215 42 207 38 212 37 209 35ZM863 36 853 35 863 35ZM231 37 229 40 226 40 224 35 228 33 239 34 235 37ZM159 42 152 43 144 40 149 34 147 32 169 33 172 35 159 40ZM882 30 875 31 870 29 875 29ZM230 30 222 30 229 29ZM867 28 865 30 851 31 845 29 847 27 857 26ZM217 24 219 26 218 30 211 30 211 28 207 28 206 25 217 25ZM191 26 198 27 196 30 181 32 176 31 182 29 166 29 172 25 189 28 185 25 191 24ZM633 44 623 44 617 40 629 31 628 30 662 23 664 25 662 26 636 32 628 38 628 41ZM228 23 236 24 242 28 264 27 267 30 261 32 234 30 230 25 224 25 221 24 222 23ZM170 21 170 24 168 25 152 26 162 21 166 22ZM765 23 766 25 776 24 784 27 784 29 772 33 781 33 783 35 797 34 797 36 809 37 809 34 819 35 823 36 823 40 830 44 833 40 837 42 853 41 851 38 855 37 879 39 888 44 904 43 906 47 909 48 928 48 932 51 936 50 933 47 935 46 956 48 960 50 960 63 953 64 959 71 943 74 934 80 930 78 916 80 912 85 912 87 915 87 915 92 912 92 912 96 898 109 894 95 896 90 898 87 916 76 919 71 915 71 914 74 907 78 905 74 898 75 891 80 893 82 883 83 884 81 879 81 859 83 840 97 845 97 848 100 850 98 853 99 857 102 857 105 849 125 840 134 829 137 826 140 826 143 820 146 825 154 824 162 817 164 816 156 818 156 813 152 814 147 811 146 803 149 806 144 804 143 795 148 793 150 797 154 799 155 802 153 807 156 803 157 798 162 801 164 805 173 805 176 803 176 806 179 804 185 796 197 789 203 783 203 782 205 775 207 775 211 773 211 773 207 769 206 762 213 772 234 769 242 760 250 760 245 756 243 754 238 747 234 744 245 749 255 756 262 758 274 750 269 747 257 743 250 742 252 743 235 739 222 734 226 731 225 732 218 730 213 726 210 724 203 721 203 721 206 717 205 712 207 711 211 698 224 694 225 693 244 687 252 684 249 676 225 674 207 668 209 664 205 666 204 665 202 660 199 657 194 644 195 633 193 631 188 626 190 617 186 614 178 608 179 610 186 614 190 615 196 616 192 618 193 618 199 624 198 631 191 630 196 637 200 639 206 634 211 634 215 626 222 620 224 610 232 596 236 593 220 584 208 583 200 580 198 574 185 572 185 573 180 570 187 566 179 575 202 578 205 580 216 586 227 596 237 594 239 596 242 601 243 616 238 616 244 610 260 587 287 583 298 585 301 584 306 588 312 589 327 573 344 575 358 567 363 567 372 557 385 549 390 540 390 534 393 529 391 529 383 521 368 518 351 511 338 512 326 517 315 512 295 503 282 506 270 503 262 496 264 492 257 483 258 475 262 464 261 460 264 456 262 445 252 440 241 436 239 433 229 437 221 437 212 434 209 441 191 446 185 449 185 452 182 455 170 462 165 464 160 474 162 484 157 502 156 505 154 510 156 508 158 509 163 507 164 510 168 521 171 522 174 531 178 534 171 537 169 546 172 547 174 551 173 557 176 565 174 565 176 570 176 576 163 576 157 573 156 567 159 565 157 554 157 550 152 550 147 553 144 569 139 588 142 591 141 591 137 578 128 580 128 582 125 580 124 584 122 573 125 573 127 577 129 570 131 567 128 570 126 565 125 564 123 558 130 557 129 554 137 557 142 550 145 546 142 543 143 544 146 540 145 544 152 540 158 532 145 532 139 515 127 513 130 517 136 522 139 522 141 529 144 529 146 525 144 524 146 526 148 522 153 523 149 521 145 512 140 504 131 497 135 488 135 488 139 486 142 482 142 479 148 480 150 474 157 464 159 463 156 456 156 457 153 455 148 457 142 455 136 459 133 475 134 476 132 477 126 474 122 468 119 468 117 476 117 475 113 477 115 484 112 484 109 489 108 493 102 499 100 502 101 503 89 508 87 507 90 509 91 506 96 509 99 513 98 518 100 527 96 532 98 537 95 536 90 538 88 540 87 544 89 545 85 542 84 542 82 555 81 558 79 550 78 541 80 537 77 537 69 548 63 547 61 539 60 537 65 528 70 526 75 530 79 528 83 525 84 522 92 515 95 508 81 499 86 495 84 493 73 508 65 524 51 537 45 541 46 545 43 555 42 563 45 560 46 563 48 577 49 587 53 590 57 587 59 582 60 568 57 573 60 573 65 579 67 577 64 579 62 588 64 586 61 592 58 597 59 599 57 596 51 603 52 605 54 601 54 601 56 604 57 608 57 608 55 623 50 625 50 623 52 626 53 637 50 640 52 643 50 640 48 641 47 663 53 664 51 662 48 658 48 658 43 667 36 674 37 672 42 676 52 670 59 673 59 680 54 680 50 676 48 678 44 675 42 680 39 679 37 682 39 681 42 684 43 682 40 687 39 697 41 695 34 712 33 709 32 712 29 729 26 738 27 758 21 763 22 759 23ZM611 141 612 144 614 144 610 150 611 154 619 157 624 156 624 149 622 148 621 143 624 144 626 142 623 139 621 139 621 142 620 136 614 131 617 131 617 128 621 128 621 123 617 122 611 124 604 130 610 140ZM186 21 177 21 183 19 187 20ZM546 20 540 22 535 21 537 20 535 19 541 18 542 20ZM188 18 180 19 184 17ZM224 20 218 20 217 17 225 18ZM213 19 200 19 202 18 199 16 211 17ZM760 19 745 20 752 15 761 17ZM529 14 537 17 531 18 526 24 522 24 508 14 525 13ZM548 12 553 13 549 15 534 15 526 12 541 11ZM616 11 610 13 600 11 617 11ZM747 17 733 16 723 12 736 9 747 14ZM248 14 251 15 243 19 232 19 229 17 232 15 222 13 229 10 227 9 246 12ZM297 3 315 5 300 8 305 8 290 14 275 15 279 16 277 16 279 18 267 22 272 24 265 26 241 25 241 23 246 23 245 20 253 21 245 19 252 17 253 15 248 12 262 12 246 12 236 7 252 4 258 6 264 3 292 3ZM408 2 424 4 396 7 419 6 421 7 418 9 438 7 447 9 427 13 433 13 427 17 428 21 431 23 422 24 427 26 428 29 425 29 428 32 422 32 426 34 425 35 417 35 421 39 414 39 421 41 422 44 417 45 412 42 413 44 410 46 420 46 395 53 383 60 374 61 372 66 366 71 367 73 364 79 361 79 351 77 342 67 341 62 336 56 339 52 343 51 344 47 337 49 334 48 334 45 343 44 331 41 334 38 324 28 317 26 297 26 290 23 302 22 285 20 285 18 305 15 299 13 314 9 313 7 339 7 346 5 361 8 355 5 386 1Z"
+        />
+        <path
+          id="graticule"
+          d="M0 0V470M80 0V470M160 0V470M240 0V470M320 0V470M400 0V470M480 0V470M560 0V470M640 0V470M720 0V470M800 0V470M880 0V470M960 0V470M0 79.4H960M0 178.7H960M0 278H960M0 377.3H960"
+        />
+      </defs>
+    </svg>
+
     <header class="site-header">
       <a class="brand" href="/" aria-label="been2guessr home">
-        <span class="brand-mark" aria-hidden="true">b2g</span>
-        <span>been<span class="accent">2</span>guessr</span>
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 2.4c-3.6 0-6.5 2.9-6.5 6.5 0 4.9 6.5 12 6.5 12s6.5-7.1 6.5-12c0-3.6-2.9-6.5-6.5-6.5Z"
+            fill="currentColor"
+          />
+          <circle class="brand-mark-hole" cx="12" cy="8.9" r="2.5" />
+          <path class="brand-mark-grid" d="M9.5 8.9h5M12 6.4v5" />
+        </svg>
+        <span>been<span class="brand-two">2</span>guessr</span>
       </a>
-      <nav class="site-nav">
+      <nav class="site-nav" aria-label="Main">
         <a href="#how">How it works</a>
         <a
-          class="gh-link"
+          class="nav-gh"
           href="https://github.com/RealDCLN/been2guessr"
           target="_blank"
           rel="noreferrer"
-          >GitHub ↗</a
         >
+          GitHub
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <path d="M3 9 9 3M4.2 3H9v4.8" fill="none" stroke="currentColor" stroke-width="1.2" />
+          </svg>
+        </a>
       </nav>
     </header>
 
-    <main>
+    <main class="page">
       <section class="hero">
-        <p class="eyebrow">BeenEverywhere → GeoGuessr</p>
-        <h1>Your travels.<br /><span class="gradient">A playable map.</span></h1>
-        <p class="lede">
-          Paste a public BeenEverywhere profile. Get a JSON file full of real
-          Street View panoramas near the places you have been — ready to import
-          into GeoGuessr as handpicked locations.
-        </p>
-      </section>
+        <div class="hero-copy">
+          <p class="kicker">BeenEverywhere <span aria-hidden="true">→</span> GeoGuessr</p>
+          <h1>Your travels,<br />as a playable map.</h1>
+          <p class="lede">
+            Paste a public BeenEverywhere profile. Get a GeoGuessr map built from real
+            Street View panoramas near the places you have been, with pano IDs and
+            starting headings already set.
+          </p>
 
-      <section class="card build-card" aria-labelledby="build-title">
-        <h2 id="build-title" class="sr-only">Build a map</h2>
-        <form id="build-form" novalidate>
-          <label class="field field-wide">
-            <span>BeenEverywhere profile</span>
-            <input
-              id="source"
-              name="source"
-              type="text"
-              placeholder="your-username or https://beeneverywhere.net/user/your-username"
-              autocomplete="off"
-              spellcheck="false"
-              required
-            />
-            <small>Your map must be public. Private maps can use <code>?secret=…</code> in the URL.</small>
-          </label>
-
-          <div class="form-row">
-            <label class="field">
-              <span>Locations</span>
-              <input id="count" name="count" type="number" value="300" min="1" max="2000" step="1" />
-              <small>A good GeoGuessr map has 100–1000.</small>
-            </label>
-            <div class="field submit-field">
-              <span class="field-label">Ready when you are</span>
-              <button id="submit" class="button primary big" type="submit">
-                Build my map
-              </button>
+          <form id="build-form" class="build" novalidate>
+            <div class="field">
+              <label class="field-label" for="source">BeenEverywhere profile</label>
+              <div class="input-row">
+                <input
+                  id="source"
+                  name="source"
+                  type="text"
+                  placeholder="your-username"
+                  autocomplete="off"
+                  spellcheck="false"
+                  required
+                />
+                <button id="submit" class="button primary" type="submit">Build map</button>
+              </div>
+              <small>Public maps only. Private maps work with <code>?secret=…</code> in the URL.</small>
             </div>
+
+            <div class="build-row">
+              <label class="field count-field">
+                <span class="field-label">Locations</span>
+                <input id="count" name="count" type="number" value="300" min="1" max="2000" step="1" />
+              </label>
+              <p class="build-note">100–1000 makes a good round.</p>
+            </div>
+
+            <details class="advanced">
+              <summary>Advanced options</summary>
+              <div class="advanced-grid">
+                <label class="field">
+                  <span>Search radius per place (m)</span>
+                  <input id="max_radius" type="number" value="1600" min="100" max="20000" step="100" />
+                  <small>How far to look around each visited place.</small>
+                </label>
+                <label class="field">
+                  <span>Minimum spacing (m)</span>
+                  <input id="min_spacing" type="number" value="100" min="0" max="5000" step="10" />
+                  <small>Stops two picks from being on top of each other.</small>
+                </label>
+                <label class="field">
+                  <span>Max per place</span>
+                  <input id="per_place_max" type="number" value="8" min="1" max="50" step="1" />
+                  <small>Balanced automatically across all your places.</small>
+                </label>
+                <label class="field">
+                  <span>Seed (optional)</span>
+                  <input id="seed" type="number" min="0" step="1" placeholder="random" />
+                  <small>Same seed, same starting headings.</small>
+                </label>
+                <label class="check">
+                  <input id="include_photospheres" type="checkbox" checked />
+                  <span>Include user photospheres when official coverage is missing</span>
+                </label>
+                <label class="check">
+                  <input id="official_only" type="checkbox" />
+                  <span>Official Google coverage only</span>
+                </label>
+              </div>
+            </details>
+          </form>
+        </div>
+
+        <aside class="plate" aria-label="Example of a built map">
+          <div class="plate-head">
+            <span class="plate-title">Sample map</span>
+            <span class="plate-meta mono">5 stops</span>
           </div>
+          <div class="plate-map">
+            <svg viewBox="0 0 960 470" role="img" aria-label="World map with five sample stops connected by a route">
+              <use href="#graticule" class="graticule" />
+              <use href="#world-land" class="land" />
+              <path class="equator" d="M0 278H960" />
+              <path
+                class="route"
+                d="M421 66 456 150 529 390 600 140 857 135"
+              />
 
-          <details class="advanced">
-            <summary>Advanced options</summary>
-            <div class="advanced-grid">
-              <label class="field">
-                <span>Search radius per place (m)</span>
-                <input id="max_radius" type="number" value="1600" min="100" max="20000" step="100" />
-                <small>How far to look around each visited place.</small>
-              </label>
-              <label class="field">
-                <span>Minimum spacing (m)</span>
-                <input id="min_spacing" type="number" value="100" min="0" max="5000" step="10" />
-                <small>Stops two picks from being on top of each other.</small>
-              </label>
-              <label class="field">
-                <span>Max per place</span>
-                <input id="per_place_max" type="number" value="8" min="1" max="50" step="1" />
-                <small>Balanced automatically across all your places.</small>
-              </label>
-              <label class="field">
-                <span>Seed (optional)</span>
-                <input id="seed" type="number" min="0" step="1" placeholder="random" />
-                <small>Same seed = same starting headings.</small>
-              </label>
-              <label class="check">
-                <input id="include_photospheres" type="checkbox" checked />
-                <span>Include user photospheres when official coverage is missing</span>
-              </label>
-              <label class="check">
-                <input id="official_only" type="checkbox" />
-                <span>Official Google coverage only</span>
-              </label>
-            </div>
-          </details>
-        </form>
+              <g class="pin" style="--i: 0" transform="translate(421 66)">
+                <circle class="pin-halo" r="12" />
+                <circle class="pin-dot" r="4.2" />
+              </g>
+              <g class="pin" style="--i: 1" transform="translate(456 150)">
+                <circle class="pin-halo" r="12" />
+                <circle class="pin-dot" r="4.2" />
+              </g>
+              <g class="pin" style="--i: 2" transform="translate(529 390)">
+                <circle class="pin-halo" r="12" />
+                <circle class="pin-dot" r="4.2" />
+              </g>
+              <g class="pin pin-active" style="--i: 3" transform="translate(600 140)">
+                <circle class="pin-halo" r="15" />
+                <circle class="pin-ring" r="11" />
+                <circle class="pin-dot" r="4.4" />
+                <path class="pin-tick" d="M0 -14v-4M0 14v4M-14 0h-4M14 0h4" />
+              </g>
+              <g class="pin" style="--i: 4" transform="translate(857 135)">
+                <circle class="pin-halo" r="12" />
+                <circle class="pin-dot" r="4.2" />
+              </g>
+
+              <g class="map-tag" transform="translate(616 104)">
+                <path d="M-16 36 -4 16" />
+                <text class="map-tag-name">Tbilisi</text>
+                <text class="map-tag-coords" y="15">41.72° N 44.83° E</text>
+              </g>
+
+              <g class="compass" transform="translate(908 44)">
+                <circle r="15" />
+                <path class="compass-north" d="M0 -9 3.4 3 0 0.6 -3.4 3Z" />
+                <text y="-21">N</text>
+              </g>
+
+              <text class="map-edge" x="8" y="75">60°N</text>
+              <text class="map-edge" x="8" y="274">0°</text>
+              <text class="map-edge" x="8" y="373">30°S</text>
+              <text class="map-edge" x="160" y="462" text-anchor="middle">120°W</text>
+              <text class="map-edge" x="480" y="462" text-anchor="middle">0°</text>
+              <text class="map-edge" x="800" y="462" text-anchor="middle">120°E</text>
+              <text class="map-scale" x="948" y="462" text-anchor="end">WGS 84</text>
+            </svg>
+          </div>
+          <ol class="plate-list">
+            <li>
+              <span class="place">Lisbon</span>
+              <span class="cc mono">PT</span>
+              <span class="coords mono">38.7223, −9.1393</span>
+              <span class="kind"><i class="dot"></i>Official</span>
+            </li>
+            <li>
+              <span class="place">Tbilisi</span>
+              <span class="cc mono">GE</span>
+              <span class="coords mono">41.7151, 44.8271</span>
+              <span class="kind"><i class="dot"></i>Official</span>
+            </li>
+            <li>
+              <span class="place">Cape Town</span>
+              <span class="cc mono">ZA</span>
+              <span class="coords mono">−33.9249, 18.4241</span>
+              <span class="kind"><i class="dot"></i>Official</span>
+            </li>
+          </ol>
+          <div class="plate-foot">
+            <span>JSON with pano IDs</span>
+            <span class="mono">ready to import</span>
+          </div>
+        </aside>
       </section>
 
-      <section id="status" class="card status" hidden aria-live="polite">
-        <div class="status-top">
+      <section id="status" class="sheet status" hidden aria-live="polite">
+        <div class="status-head">
           <div>
-            <p class="eyebrow" id="status-eyebrow">Working</p>
+            <p class="meta" id="status-eyebrow">Working</p>
             <h2 id="status-title">Finding your places…</h2>
           </div>
-          <div class="status-right">
+          <div class="status-clock">
             <span id="status-pct" class="mono">0%</span>
-            <span id="status-time" class="muted mono">0s</span>
+            <span id="status-time" class="mono">0s</span>
           </div>
         </div>
-        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="ruler" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <div id="bar" class="bar"></div>
         </div>
-        <p id="status-message" class="muted">Contacting BeenEverywhere…</p>
+        <p id="status-message" class="status-message">Contacting BeenEverywhere…</p>
+        <p class="status-note">Keep this tab open. A 300-location map usually takes two to four minutes.</p>
       </section>
 
-      <section id="result" class="card result" hidden aria-live="polite">
-        <div class="result-head">
+      <section id="result" class="sheet result" hidden aria-live="polite">
+        <div class="sheet-head">
           <div>
-            <p class="eyebrow">Map ready</p>
+            <p class="meta">Map ready</p>
             <h2 id="result-title">Your map is built</h2>
           </div>
-          <span class="badge" id="result-badge"></span>
+          <span id="result-badge" class="badge">Complete</span>
         </div>
 
-        <div class="stat-grid">
-          <div class="stat"><span class="stat-value mono" id="stat-locations">0</span><span>locations</span></div>
-          <div class="stat"><span class="stat-value mono" id="stat-places">0</span><span>places covered</span></div>
-          <div class="stat"><span class="stat-value mono" id="stat-countries">0</span><span>countries</span></div>
-          <div class="stat"><span class="stat-value mono" id="stat-photospheres">0</span><span>photospheres</span></div>
-        </div>
+        <dl class="figures">
+          <div>
+            <dt>Locations</dt>
+            <dd id="stat-locations" class="mono">0</dd>
+          </div>
+          <div>
+            <dt>Places covered</dt>
+            <dd id="stat-places" class="mono">0 / 0</dd>
+          </div>
+          <div>
+            <dt>Countries</dt>
+            <dd id="stat-countries" class="mono">0</dd>
+          </div>
+          <div>
+            <dt>Photospheres</dt>
+            <dd id="stat-photospheres" class="mono">0</dd>
+          </div>
+        </dl>
 
-        <div id="country-chips" class="chips"></div>
-        <div id="warnings" class="warnings"></div>
+        <div class="result-grid">
+          <figure class="coverage">
+            <div class="panel-head">
+              <h3>Coverage</h3>
+              <span id="coverage-meta" class="mono">0 picks</span>
+            </div>
+            <svg
+              class="coverage-map"
+              viewBox="0 0 960 470"
+              role="img"
+              aria-label="Map of the selected panorama locations"
+            >
+              <use href="#graticule" class="graticule" />
+              <use href="#world-land" class="land" />
+              <path class="equator" d="M0 278H960" />
+              <g id="coverage-points"></g>
+            </svg>
+            <figcaption>
+              <span><i class="key key-official"></i>Official</span>
+              <span><i class="key key-third"></i>Photosphere</span>
+            </figcaption>
+          </figure>
+
+          <div class="country-panel">
+            <div class="panel-head">
+              <h3>Countries</h3>
+              <span id="country-count" class="mono"></span>
+            </div>
+            <div id="country-list" class="country-list"></div>
+            <div id="warnings" class="warnings"></div>
+          </div>
+        </div>
 
         <div class="actions">
           <a id="download-json" class="button primary" download>Download JSON</a>
           <a id="download-csv" class="button" download>Download CSV report</a>
-          <button id="copy-json" class="button" type="button">Copy JSON</button>
+          <button id="copy-json" class="button quiet" type="button">Copy JSON</button>
         </div>
 
         <details class="import-help">
           <summary>How to import this into GeoGuessr</summary>
           <ol>
             <li>Open GeoGuessr and create a new map in the map editor.</li>
-            <li>Choose <strong>Import locations</strong> (or use the copy/paste map data userscript).</li>
+            <li>Choose <strong>Import locations</strong>, or use the copy and paste map data userscript.</li>
             <li>Upload the JSON file you just downloaded.</li>
             <li>If your editor only accepts a bare list, build again with the CLI <code>--array</code> flag.</li>
           </ol>
           <p class="muted">
-            Every location includes a <code>panoId</code>, so the map uses the exact panorama
-            that was selected. Keep the map unlisted/private if you only made it for yourself.
+            Every location includes a <code>panoId</code>, so the map uses the exact
+            panorama that was selected. Keep the map unlisted if you only made it for
+            yourself.
           </p>
         </details>
 
         <div class="preview-wrap">
-          <h3>First picks</h3>
+          <div class="panel-head">
+            <h3>First picks</h3>
+            <span class="mono muted">6 of the set</span>
+          </div>
           <div class="table-wrap">
             <table class="preview">
               <thead>
-                <tr><th>Place</th><th>Country</th><th>Coordinates</th><th>Type</th></tr>
+                <tr>
+                  <th>Place</th>
+                  <th>Country</th>
+                  <th>Coordinates</th>
+                  <th>Type</th>
+                </tr>
               </thead>
               <tbody id="preview-body"></tbody>
             </table>
@@ -191,55 +354,68 @@
         </div>
       </section>
 
-      <section id="error" class="card error" hidden aria-live="assertive">
-        <p class="eyebrow">Something went wrong</p>
+      <section id="error" class="sheet error" hidden aria-live="assertive">
+        <p class="meta">Build failed</p>
         <h2>Could not build this map</h2>
         <p id="error-message" class="muted"></p>
         <button id="retry" class="button" type="button">Try again</button>
       </section>
 
       <section id="how" class="how">
-        <h2>What happens under the hood</h2>
-        <div class="how-grid">
-          <article>
-            <span class="step mono">01</span>
-            <h3>Read your map</h3>
-            <p>
-              been2guessr pulls the public GeoJSON from BeenEverywhere — the same data
-              behind your visited-cities map. No login, no scraping of your profile page.
-            </p>
-          </article>
-          <article>
-            <span class="step mono">02</span>
-            <h3>Find real panoramas</h3>
-            <p>
-              For each place it searches Google Street View coverage, reads panorama
-              metadata, and discards indoor, broken, and duplicate picks.
-            </p>
-          </article>
-          <article>
-            <span class="step mono">03</span>
-            <h3>Build a balanced map</h3>
-            <p>
-              Locations are spread across every place you visited, with a minimum
-              distance between picks. Then it writes the GeoGuessr JSON with pano IDs.
-            </p>
-          </article>
+        <div class="how-head">
+          <h2>What happens under the hood</h2>
+          <p>
+            Three steps and no login. Your map is read from the public GeoJSON behind
+            BeenEverywhere, then every pick is checked against Street View.
+          </p>
         </div>
+        <ol class="steps">
+          <li>
+            <span class="step-no mono">01</span>
+            <div>
+              <h3>Read your map</h3>
+              <p>
+                been2guessr pulls the public GeoJSON from BeenEverywhere, the same data
+                behind your visited-cities map. No login, no scraping of your profile
+                page.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step-no mono">02</span>
+            <div>
+              <h3>Find real panoramas</h3>
+              <p>
+                For each place it searches Google Street View coverage, reads panorama
+                metadata, and discards indoor, broken, and duplicate picks.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step-no mono">03</span>
+            <div>
+              <h3>Build a balanced map</h3>
+              <p>
+                Locations are spread across every place you visited, with a minimum
+                distance between picks. Then it writes the GeoGuessr JSON with pano IDs.
+              </p>
+            </div>
+          </li>
+        </ol>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-row">
-        <div>
-          <strong>been2guessr</strong> · MIT licensed ·
-          <a href="https://github.com/RealDCLN/been2guessr">source</a> ·
+        <div class="footer-meta">
+          <strong>been2guessr</strong>
+          <span>MIT licensed</span>
+          <a href="https://github.com/RealDCLN/been2guessr">source</a>
           <a href="/humans.txt">humans.txt</a>
         </div>
-        <div class="credit" aria-label="Made by DCLN">
-          <span class="credit-label">made by</span>
+        <div class="credit">
+          <span>made by</span>
           <a class="signature" href="https://github.com/RealDCLN" target="_blank" rel="noreferrer">DCLN</a>
-          <span class="spark" aria-hidden="true">✦</span>
         </div>
       </div>
       <p class="muted">
@@ -251,3 +427,4 @@
     <script src="/static/app.js" defer></script>
   </body>
 </html>
+

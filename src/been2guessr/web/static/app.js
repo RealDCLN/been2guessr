@@ -2,12 +2,15 @@
   "use strict";
 
   const $ = (id) => document.getElementById(id);
+  const SVG_NS = "http://www.w3.org/2000/svg";
 
   const form = $("build-form");
   const submit = $("submit");
   const statusCard = $("status");
   const resultCard = $("result");
   const errorCard = $("error");
+  const progress = statusCard.querySelector(".ruler");
+  const bar = $("bar");
 
   const stageTitles = {
     queued: "Waiting for a worker…",
@@ -25,11 +28,10 @@
     return new Intl.NumberFormat().format(value || 0);
   }
 
-  function flagEmoji(code) {
-    if (!code || code.length !== 2 || code === "??") return "🌐";
-    const base = 0x1f1e6;
-    const chars = [...code.toUpperCase()].map((c) => base + (c.charCodeAt(0) - 65));
-    return String.fromCodePoint(...chars);
+  function project(lat, lng) {
+    const x = ((lng + 180) / 360) * 960;
+    const y = ((84 - lat) / 142) * 470;
+    return [Math.min(960, Math.max(0, x)), Math.min(470, Math.max(0, y))];
   }
 
   function setError(message) {
@@ -39,8 +41,8 @@
     errorCard.hidden = false;
     $("error-message").textContent = message;
     submit.disabled = false;
-    submit.textContent = "Build my map";
-    window.scrollTo({ top: errorCard.offsetTop - 40, behavior: "smooth" });
+    submit.textContent = "Build map";
+    errorCard.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   function resetUI() {
@@ -49,9 +51,9 @@
     errorCard.hidden = true;
     resultCard.hidden = true;
     statusCard.hidden = true;
-    $("bar").style.width = "0%";
-    $("bar").parentElement.classList.remove("indeterminate");
-    $("bar").parentElement.setAttribute("aria-valuenow", "0");
+    bar.style.transform = "";
+    progress.classList.remove("indeterminate");
+    progress.setAttribute("aria-valuenow", "0");
     $("status-pct").textContent = "0%";
     $("status-time").textContent = "0s";
     $("status-title").textContent = "Finding your places…";
@@ -129,18 +131,18 @@
     $("status-message").textContent = job.message || "";
 
     const elapsed = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
-    $("status-time").textContent = elapsed < 60 ? `${elapsed}s` : `${Math.floor(elapsed / 60)}m ${elapsed % 60}s`;
+    $("status-time").textContent =
+      elapsed < 60 ? `${elapsed}s` : `${Math.floor(elapsed / 60)}m ${elapsed % 60}s`;
 
-    const progress = statusCard.querySelector(".progress");
-    const bar = $("bar");
     if (job.total > 0 && job.current >= 0 && stage !== "selecting") {
       const pct = Math.min(100, Math.round((job.current / job.total) * 100));
       progress.classList.remove("indeterminate");
-      bar.style.width = `${pct}%`;
+      bar.style.transform = `scaleX(${pct / 100})`;
       $("status-pct").textContent = `${pct}%`;
       progress.setAttribute("aria-valuenow", String(pct));
     } else {
       progress.classList.add("indeterminate");
+      bar.style.transform = "";
       $("status-pct").textContent = "…";
       progress.removeAttribute("aria-valuenow");
     }
@@ -170,6 +172,80 @@
     }
   }
 
+  function renderCountries(countries) {
+    const list = $("country-list");
+    list.replaceChildren();
+    const entries = Object.entries(countries || {}).sort((a, b) => b[1] - a[1]);
+    $("country-count").textContent = entries.length
+      ? `${fmtNumber(entries.length)} ${entries.length === 1 ? "country" : "countries"}`
+      : "";
+
+    if (!entries.length) {
+      const empty = document.createElement("p");
+      empty.className = "country-more";
+      empty.textContent = "No country data in this build";
+      list.append(empty);
+      return;
+    }
+
+    const max = Math.max(...entries.map((entry) => entry[1]), 1);
+
+    entries.slice(0, 8).forEach(([code, count], index) => {
+      const row = document.createElement("div");
+      row.className = "country-row";
+
+      const label = document.createElement("span");
+      label.className = "cc mono";
+      label.textContent = code === "??" ? "—" : code;
+
+      const track = document.createElement("span");
+      track.className = "country-track";
+      const fill = document.createElement("span");
+      fill.className = index === 0 ? "country-fill lead" : "country-fill";
+      fill.style.transform = `scaleX(${count / max})`;
+      track.append(fill);
+
+      const value = document.createElement("span");
+      value.className = "count mono";
+      value.textContent = fmtNumber(count);
+
+      row.append(label, track, value);
+      list.append(row);
+    });
+
+    if (entries.length > 8) {
+      const more = document.createElement("p");
+      more.className = "country-more";
+      more.textContent = `and ${entries.length - 8} more`;
+      list.append(more);
+    }
+  }
+
+  function renderCoverage(job, summary) {
+    const layer = $("coverage-points");
+    layer.replaceChildren();
+    const points = Array.isArray(job.points) ? job.points : [];
+
+    if (points.length) {
+      const fragment = document.createDocumentFragment();
+      points.forEach((point) => {
+        const lat = Number(point[0]);
+        const lng = Number(point[1]);
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+        const [x, y] = project(lat, lng);
+        const dot = document.createElementNS(SVG_NS, "circle");
+        dot.setAttribute("cx", x.toFixed(1));
+        dot.setAttribute("cy", y.toFixed(1));
+        dot.setAttribute("r", point[2] ? "3.4" : "3.2");
+        dot.setAttribute("class", point[2] ? "pt pt-third" : "pt");
+        fragment.append(dot);
+      });
+      layer.append(fragment);
+    }
+
+    $("coverage-meta").textContent = `${fmtNumber(summary.produced)} picks`;
+  }
+
   function renderResult(job) {
     const summary = job.summary || {};
     const countries = summary.countries || {};
@@ -181,26 +257,19 @@
     $("result-title").textContent = summary.username
       ? `@${summary.username} · ${fmtNumber(summary.produced)} locations`
       : `${fmtNumber(summary.produced)} locations`;
-    $("result-badge").textContent = summary.produced >= summary.requested ? "Complete" : "Partial";
+
+    const badge = $("result-badge");
+    const complete = summary.produced >= summary.requested;
+    badge.textContent = complete ? "Complete" : "Partial";
+    badge.dataset.state = complete ? "complete" : "partial";
+
     $("stat-locations").textContent = fmtNumber(summary.produced);
     $("stat-places").textContent = `${fmtNumber(summary.places_covered)} / ${fmtNumber(summary.places_total)}`;
     $("stat-countries").textContent = fmtNumber(Object.keys(countries).length);
     $("stat-photospheres").textContent = fmtNumber(summary.third_party);
 
-    const chips = $("country-chips");
-    chips.replaceChildren();
-    Object.entries(countries).forEach(([code, count]) => {
-      const chip = document.createElement("span");
-      chip.className = "chip";
-      const flag = document.createElement("span");
-      flag.textContent = flagEmoji(code);
-      const label = document.createElement("b");
-      label.textContent = code === "??" ? "Unknown" : code;
-      const num = document.createElement("span");
-      num.textContent = fmtNumber(count);
-      chip.append(flag, label, num);
-      chips.append(chip);
-    });
+    renderCoverage(job, summary);
+    renderCountries(countries);
 
     const warnings = $("warnings");
     warnings.replaceChildren();
@@ -220,13 +289,18 @@
       const tr = document.createElement("tr");
       const place = document.createElement("td");
       place.textContent = row.place || "—";
+
       const country = document.createElement("td");
-      country.textContent = `${flagEmoji(row.country)} ${row.country || "—"}`;
+      country.className = "mono";
+      country.textContent = row.country || "—";
+
       const coords = document.createElement("td");
       coords.className = "mono";
       coords.textContent = `${row.lat.toFixed(4)}, ${row.lng.toFixed(4)}`;
+
       const kind = document.createElement("td");
       kind.textContent = row.photosphere ? "Photosphere" : "Official";
+
       tr.append(place, country, coords, kind);
       body.append(tr);
     });
@@ -245,7 +319,7 @@
       if (!response.ok) throw new Error("download failed");
       const text = await response.text();
       await navigator.clipboard.writeText(text);
-      button.textContent = "Copied!";
+      button.textContent = "Copied";
     } catch (_) {
       button.textContent = "Copy failed";
     }
@@ -262,8 +336,8 @@
   $("copy-json").addEventListener("click", copyJson);
 
   console.log(
-    "%c made by DCLN %c github.com/RealDCLN ",
-    "background:#8ef0a3;color:#08130c;font-weight:700;padding:3px 8px;border-radius:4px",
-    "color:#94a3b8"
+    "%c been2guessr %c built by DCLN · github.com/RealDCLN ",
+    "background:#d8a24a;color:#1a1206;font-weight:600;padding:3px 8px;border-radius:4px",
+    "color:#aab4aa"
   );
 })();
