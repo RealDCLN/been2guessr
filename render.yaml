@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: been2guessr
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: MAX_CONCURRENT_JOBS
+        value: "1"
+      - key: MAX_BUILD_LOCATIONS
+        value: "1000"
+      - key: RATE_LIMIT_JOBS
+        value: "3"
+      - key: JOB_TTL_SECONDS
+        value: "3600"
