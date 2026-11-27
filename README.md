@@ -11,6 +11,9 @@ Paste a public BeenEverywhere profile and get a JSON file of real Street View
 panoramas near the places you have visited — with pano IDs, coordinates, and
 starting headings, ready to import as handpicked locations.
 
+**Live demo:** <https://been2guessr.onrender.com> — the free instance sleeps
+when idle, so the first load can take up to a minute.
+
 ```
 BeenEverywhere map  →  Street View coverage search  →  balanced selection  →  GeoGuessr JSON
 ```
