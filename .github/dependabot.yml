@@ -21,3 +21,7 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Python base-image majors need a manual compatibility pass.
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major"]
