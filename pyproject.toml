@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "been2guessr"
-version = "0.1.0"
+version = "0.1.1"
 description = "Turn a BeenEverywhere travel map into a GeoGuessr custom map."
 readme = "README.md"
 license = { text = "MIT" }
@@ -51,7 +51,7 @@ Issues = "https://github.com/RealDCLN/been2guessr/issues"
 packages = ["src/been2guessr"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src", "tests", "assets", "README.md", "LICENSE"]
+include = ["src", "tests", "assets", "docs", "README.md", "LICENSE"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

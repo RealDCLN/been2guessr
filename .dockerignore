@@ -13,3 +13,17 @@ tests
 docs
 output
 maps
+
+# Never send local configuration or credentials into the build context.
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.db
+*.sqlite
+*.sqlite3
+coverage
+.coverage
+htmlcov

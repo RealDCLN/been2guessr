@@ -122,7 +122,9 @@ def fetch_map(
         raise BeenEverywhereError(f"Could not reach BeenEverywhere: {exc}") from exc
 
     if response.status_code == 404:
-        raise BeenEverywhereError(f'No map found for "{username}". Check the username or make the map public.')
+        raise BeenEverywhereError(
+            f'No map found for "{username}". Check the username or make the map public.'
+        )
     if response.status_code != 200:
         raise BeenEverywhereError(f"BeenEverywhere returned HTTP {response.status_code}.")
 
@@ -132,7 +134,7 @@ def fetch_map(
         raise BeenEverywhereError("BeenEverywhere returned invalid JSON.") from exc
 
     if isinstance(payload, dict) and payload.get("error"):
-        raise BeenEverywhereError(f'BeenEverywhere says: {payload["error"]}')
+        raise BeenEverywhereError(f"BeenEverywhere says: {payload['error']}")
 
     return username, _places_from_geojson(payload), payload
 

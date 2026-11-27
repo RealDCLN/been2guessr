@@ -123,9 +123,7 @@ async def _collect_place(
                 for dx in range(-3, 4)
                 if dx or dy
             ]
-            results = await asyncio.gather(
-                *(_safe_find(client, lat, lon, 350, True) for lat, lon in probes)
-            )
+            results = await asyncio.gather(*(_safe_find(client, lat, lon, 350, True) for lat, lon in probes))
             for pano in results:
                 if pano:
                     add(pano, soft_limit)
@@ -245,11 +243,7 @@ def _rank_place(
     options: BuildOptions,
 ) -> list[Pano]:
     merged = [_merge_metadata(candidate, metadata.get(candidate.id)) for candidate in candidates]
-    merged = [
-        pano
-        for pano in merged
-        if pano.source not in ("innerspace", "cultural_institute")
-    ]
+    merged = [pano for pano in merged if pano.source not in ("innerspace", "cultural_institute")]
 
     official = [pano for pano in merged if not pano.third_party]
     if len(official) >= 2:
@@ -467,9 +461,7 @@ async def build_map(
     uncovered = [place for place in places if place.index not in ranked]
     skipped = [place.label for place in uncovered]
     if skipped:
-        warnings.append(
-            f"{len(skipped)} place(s) had no usable Street View coverage and were skipped."
-        )
+        warnings.append(f"{len(skipped)} place(s) had no usable Street View coverage and were skipped.")
     if options.count < len(ranked):
         warnings.append(
             f"You asked for {options.count} locations, so {len(covered)} of {len(places)} "

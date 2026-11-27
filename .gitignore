@@ -15,9 +15,28 @@ htmlcov/
 # App
 *.log
 .env
+.env.*
+!.env.example
 jobs.db
+*.db
+*.sqlite
+*.sqlite3
 output/
 maps/
+
+# Local secrets and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+
+# Tool caches
+.mypy_cache/
+.tox/
+.nox/
+coverage.xml
+*.prof
 
 # OS / editors
 .DS_Store

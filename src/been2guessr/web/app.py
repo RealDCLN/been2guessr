@@ -24,6 +24,25 @@ from .jobs import JobStore
 log = logging.getLogger(__name__)
 STATIC_DIR = Path(__file__).parent / "static"
 
+# The UI only submits a small JSON document. Anything larger is not a real
+# request and should be rejected before FastAPI reads it into memory.
+MAX_REQUEST_BYTES = 64 * 1024
+
+# Keep the policy in sync with the third-party fonts used by index.html.
+CONTENT_SECURITY_POLICY = (
+    "default-src 'self'; "
+    "base-uri 'self'; "
+    "object-src 'none'; "
+    "frame-ancestors 'none'; "
+    "form-action 'self'; "
+    "img-src 'self' data:; "
+    "script-src 'self'; "
+    "style-src 'self' https://fonts.googleapis.com; "
+    "font-src 'self' https://fonts.gstatic.com; "
+    "connect-src 'self'"
+)
+PERMISSIONS_POLICY = "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+
 
 class BuildRequest(BaseModel):
     source: str = Field(min_length=1, max_length=300, description="Username or BeenEverywhere profile URL")
@@ -100,10 +119,26 @@ def create_app(store: JobStore | None = None) -> FastAPI:
 
     @app.middleware("http")
     async def security_headers(request: Request, call_next):
-        response = await call_next(request)
+        response = None
+        content_length = request.headers.get("content-length")
+        if content_length is not None:
+            try:
+                too_large = int(content_length) > MAX_REQUEST_BYTES
+            except ValueError:
+                too_large = True
+            if too_large:
+                response = PlainTextResponse("Request body too large.", status_code=413)
+
+        if response is None:
+            response = await call_next(request)
+
         response.headers.setdefault("X-Content-Type-Options", "nosniff")
         response.headers.setdefault("X-Frame-Options", "DENY")
         response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+        response.headers.setdefault("Content-Security-Policy", CONTENT_SECURITY_POLICY)
+        response.headers.setdefault("Permissions-Policy", PERMISSIONS_POLICY)
+        if request.url.scheme == "https" or request.headers.get("x-forwarded-proto") == "https":
+            response.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
         if request.url.path.startswith("/api/"):
             response.headers.setdefault("Cache-Control", "no-store")
         return response
